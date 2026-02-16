@@ -1,0 +1,134 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Visualizador Perovskitas – UIS</title>
+  <link rel="stylesheet" href="styles_patched_v3.css" />
+</head>
+<body>
+  <header class="topbar brand">
+    <div class="brand-wrap">
+      <img class="brand-logo" src="assets/logo-uis.svg" alt="UIS" />
+      <div class="brand-titles">
+        <h1>Visualizador de Resultados – Perovskitas</h1>
+        <p class="brand-sub">Proyecto de grado · Universidad Industrial de Santander</p>
+      </div>
+    </div>
+    <div class="protocol-warning" id="protocolWarning" hidden>
+      Estás abriendo el archivo directamente (modo <code>file://</code>). Para cargar datos, usa
+      <strong>Cargar JSON</strong> o publica esta carpeta en un hosting estático.
+    </div>
+  </header>
+
+  <main class="layout">
+    <section class="controls">
+      <div class="control-row">
+        <div class="view-toggle">
+          <button id="pivotViewBtn">Vista por celda</button>
+          <button id="matrixViewBtn" class="active">Vista matriz</button>
+          <button id="imagesViewBtn">Vista imágenes</button>
+          <button id="tablesViewBtn">Vista tablas</button>
+        </div>
+      </div>
+
+      <div class="control-row">
+        <label for="searchInput">Buscar (título o DOI):</label>
+        <input id="searchInput" type="text" placeholder="Ej.: perovskite, 10.1234/..." />
+      </div>
+      <div class="control-row">
+        <div id="labelFilters" class="label-filters"></div>
+      </div>
+      <div class="control-row">
+        <div id="rangeFilters" class="range-filters"></div>
+      </div>
+
+      <div class="control-row buttons">
+        <button id="exportCsvBtn">Exportar CSV</button>
+        <button id="exportJsonBtn">Exportar JSON</button>
+      </div>
+
+      <div class="control-row small">
+        <button id="loadEntitiesBtn">Cargar JSON (entities.json)</button>
+        <input id="entitiesFile" type="file" accept="application/json" hidden />
+        <button id="loadPapersBtn">Cargar JSON (papers.json)</button>
+        <input id="papersFile" type="file" accept="application/json" hidden />
+	      <button id="loadImagesBtn">Cargar carpeta Imágenes</button>
+        <button id="loadTablesBtn">Cargar carpeta Tablas</button>
+      </div>
+
+      <div id="kpis" class="kpis"></div>
+    </section>
+
+    <section class="table-area">
+      <div id="tableContainer" class="table-container">
+        <div class="table-scroller">
+          <table>
+            <thead id="tableHead"></thead>
+            <tbody id="entitiesTbody"></tbody>
+          </table>
+        </div>
+        <div id="pagination" class="pagination"></div>
+      </div>
+    </section>
+
+    <aside id="evidencePanel" class="evidence" hidden>
+      <div class="evidence-header">
+        <h2>Evidencia</h2>
+        <button id="closeEvidenceBtn" title="Cerrar">×</button>
+      </div>
+      <div id="evidenceContent" class="evidence-content"></div>
+    </aside>
+  </main>
+
+  <footer class="site-footer">
+    <div>Hecho para el plan de trabajo de grado · UIS.</div>
+  </footer>
+
+  <!-- Muestras embebidas (puedes borrar si usas /data/*.json) -->
+  <script id="sample-papers-json" type="application/json">
+  {
+    "__embedded__": true,
+    "papers": [
+      { "paper_id":"doi-ejemplo-1", "title":"Ejemplo matriz con celdas múltiples", "journal":"Demo Journal", "doi":"doi-ejemplo-1", "url":"https://doi.org/10.0000/ejemplo1" }
+    ]
+  }
+  </script>
+
+  <script id="sample-entities-json" type="application/json">
+  {
+    "__embedded__": true,
+    "entities": [
+      { "entity_id":"ex_subs", "paper_id":"doi-ejemplo-1", "label":"Substrato/TCO", "value":"substrato1 | substrato2", "section":"Methods", "confidence":0.9 },
+      { "entity_id":"ex_etl",  "paper_id":"doi-ejemplo-1", "label":"ETL", "value":"ETL1 | ETL2 | ETL3", "section":"Methods", "confidence":0.9 },
+      { "entity_id":"ex_per",  "paper_id":"doi-ejemplo-1", "label":"Perovskita", "value":"Perov1", "section":"Methods", "confidence":0.9 },
+      { "entity_id":"ex_htl",  "paper_id":"doi-ejemplo-1", "label":"HTL", "value":"HTL1 | HTL2 | HTL3 | HTL4 | HTL5", "section":"Methods", "confidence":0.9 },
+      { "entity_id":"ex_ele",  "paper_id":"doi-ejemplo-1", "label":"Electrode", "value":"ELECTRODE 1", "section":"Methods", "confidence":0.9 },
+
+      { "entity_id":"ex_syn",  "paper_id":"doi-ejemplo-1", "label":"Síntesis", "value":"sin1 | sin2 | sin3 | sin4 | sin5 | sin6 | sin7", "section":"Methods", "confidence":0.9 },
+      { "entity_id":"ex_fab",  "paper_id":"doi-ejemplo-1", "label":"Fabricación", "value":"fab1 | fab2 | fab3", "section":"Methods", "confidence":0.9 },
+
+      { "entity_id":"c1_pce","paper_id":"doi-ejemplo-1","label":"PCE","value":1,"units":"%","cell_id":1,"section":"Results","confidence":0.9 },
+      { "entity_id":"c2_pce","paper_id":"doi-ejemplo-1","label":"PCE","value":2,"units":"%","cell_id":2,"section":"Results","confidence":0.9 },
+      { "entity_id":"c3_pce","paper_id":"doi-ejemplo-1","label":"PCE","value":3,"units":"%","cell_id":3,"section":"Results","confidence":0.9 },
+      { "entity_id":"c4_pce","paper_id":"doi-ejemplo-1","label":"PCE","value":4,"units":"%","cell_id":4,"section":"Results","confidence":0.9 },
+
+      { "entity_id":"c1_jsc","paper_id":"doi-ejemplo-1","label":"Jsc","value":25.6,"units":"mA/cm^2","cell_id":1 },
+      { "entity_id":"c2_jsc","paper_id":"doi-ejemplo-1","label":"Jsc","value":25.6,"units":"mA/cm^2","cell_id":2 },
+
+      { "entity_id":"c1_voc","paper_id":"doi-ejemplo-1","label":"Voc","value":22,"units":"V","cell_id":1 },
+      { "entity_id":"c2_voc","paper_id":"doi-ejemplo-1","label":"Voc","value":23,"units":"V","cell_id":2 },
+
+      { "entity_id":"c1_ff","paper_id":"doi-ejemplo-1","label":"FF","value":0.2,"cell_id":1 },
+      { "entity_id":"c2_ff","paper_id":"doi-ejemplo-1","label":"FF","value":0.7,"cell_id":2 },
+
+      { "entity_id":"c1_eff","paper_id":"doi-ejemplo-1","label":"Eficiencia","value":15,"units":"%","cell_id":1 }
+      { "entity_id":"img1", "paper_id":"doi-ejemplo-1", "label":"Imagen", "value":"fig1.jpg", "section":"Images", "confidence":1.0, "path":"Imágenes/doi-ejemplo-1/fig1.jpg" },
+{ "entity_id":"img2", "paper_id":"doi-ejemplo-1", "label":"Imagen", "value":"fig2.png", "section":"Images", "confidence":1.0, "path":"Imágenes/doi-ejemplo-1/fig2.png" }
+    ]
+  }
+  </script>
+
+  <script src="app_patched_ui_v7.js"></script>
+</body>
+</html>

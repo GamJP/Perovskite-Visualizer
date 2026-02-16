@@ -1,0 +1,449 @@
+/* =========================
+   Tema UIS + Layout general
+   ========================= */
+:root {
+  --uis-green-600: #00a651;
+  --uis-green-700: #008f45;
+  --uis-green-50:  #e8f7ef;
+  --uis-green-100: #d2f0e0;
+  --bg: #f7faf9;
+  --panel: #ffffff;
+  --card: #ffffff;
+  --muted: #556270;
+  --text: #0f1720;
+  --border: #e2e8f0;
+  --shadow: 0 1px 2px rgba(16,24,40,.04), 0 2px 8px rgba(16,24,40,.08);
+  --radius: 14px;
+  --min-table-width: 1120px;
+}
+
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  font-family: system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, Noto Sans, Helvetica, Arial;
+  color: var(--text);
+  background: var(--bg);
+}
+
+/* Branding */
+.topbar.brand {
+  position: sticky; top: 0; z-index: 20;
+  background: linear-gradient(90deg, var(--uis-green-700), var(--uis-green-600));
+  color: #fff;
+  padding: 14px 20px;
+  box-shadow: var(--shadow);
+}
+.brand-wrap { display: flex; align-items: center; gap: 14px; }
+.brand-logo { height: 40px; width: auto; filter: drop-shadow(0 1px 1px rgba(0,0,0,.3)); }
+.brand-titles h1 { margin: 0; font-size: 20px; font-weight: 700; }
+.brand-sub { margin: 2px 0 0; font-size: 14px; opacity: .9; }
+.protocol-warning {
+  margin-top: 10px; padding: 8px 10px; font-size: 14px;
+  color: #08250f; background: #bff1d1; border: 1px solid #95e5b8; border-radius: 10px;
+}
+
+/* Layout */
+.layout {
+  display: grid; grid-template-columns: 340px 1fr 380px; gap: 16px; padding: 16px; align-items: start;
+}
+.controls, .evidence {
+  background: var(--panel); border: 1px solid var(--border); border-radius: var(--radius); box-shadow: var(--shadow);
+}
+.controls { padding: 14px; position: sticky; top: 92px; height: fit-content; }
+.evidence { padding: 12px; position: sticky; top: 92px; height: fit-content; }
+
+/* Tabla (card en el wrapper) */
+.table-area{
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  overflow: hidden;  /* recorta solo las esquinas del card */
+}
+.table-container{ padding: 0; background: transparent; border: 0; box-shadow: none; }
+
+/* Inputs y botones */
+.control-row { display: flex; gap: 10px; margin-bottom: 12px; align-items: center; flex-wrap: wrap; }
+label { font-size: 13px; color: var(--muted); }
+input[type="text"], input[type="number"] {
+  width: 100%; padding: 10px 12px; border-radius: 12px;
+  border: 1px solid var(--border); background: #fff; color: var(--text);
+  box-shadow: inset 0 1px 0 rgba(16,24,40,.04);
+}
+button {
+  background: var(--uis-green-600); color: #fff; border: 1px solid var(--uis-green-700);
+  padding: 10px 12px; border-radius: 12px; cursor: pointer; font-weight: 600; box-shadow: var(--shadow);
+}
+button:hover { filter: brightness(0.98); }
+button:disabled { opacity: .6; cursor: not-allowed; }
+.control-row.small button { background: #fff; color: var(--uis-green-700); border: 1px solid var(--border); }
+.control-row.small button:hover { border-color: var(--uis-green-600); color: var(--uis-green-600); }
+.year-box { flex: 1; }
+
+/* Chips de etiquetas */
+.label-filters{ display: flex; flex-wrap: wrap; gap: 8px; }
+.badge{
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 6px 10px; border: 1px solid var(--border); border-radius: 999px;
+  background: #fff; color: var(--text); font-size: 13px;
+}
+.badge input{ accent-color: var(--uis-green-600); }
+
+/* Toggle de vista */
+.view-toggle { display: inline-flex; border: 1px solid var(--border); border-radius: 12px; overflow: hidden; box-shadow: var(--shadow); }
+.view-toggle button { background: #fff; color: var(--text); border: 0; padding: 10px 14px; font-weight: 600; }
+.view-toggle button.active { background: var(--uis-green-600); color: #fff; }
+.view-toggle button + button { border-left: 1px solid var(--border); }
+.view-toggle button.active { background: var(--uis-green-600); color: #fff; }
+.view-toggle button:not(.active) { background: #fff; color: var(--text); }
+
+/* KPIs */
+.kpis { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 12px; }
+.kpis .kpi { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 10px; text-align: center; position: relative; overflow: hidden; }
+.kpi::before { content: ""; position: absolute; inset: 0; border-top: 4px solid var(--uis-green-600); border-radius: 12px 12px 0 0; }
+.kpi .label { color: var(--muted); font-size: 12px; margin-top: 2px; }
+.kpi .value { font-size: 20px; font-weight: 700; margin-top: 6px; }
+
+/* Tabla base + scroller */
+.table-scroller{ 
+  overflow-x: auto; 
+  overflow-y: auto; 
+  max-height: calc(100vh - 180px); 
+  -webkit-overflow-scrolling: touch; 
+}
+.table-scroller thead {
+  position: sticky;
+  top: 0;
+  z-index: 2;
+  background: var(--uis-green-50);
+}table { width: 100%; min-width: var(--min-table-width); border-collapse: separate; border-spacing: 0; }
+
+/* =========================
+   Ajuste de anchos: Vista por celda (pivot)
+   - Evita que pocas columnas se "estiren" demasiado
+   - Busca que se perciba similar a la vista matriz
+   ========================= */
+table[data-view="pivot"]{
+  width: max-content;   /* no estirar a todo el contenedor */
+  min-width: 0;         /* anula el min-width general */
+  table-layout: fixed;
+}
+
+/* DOI */
+table[data-view="pivot"] th:nth-child(1),
+table[data-view="pivot"] td:nth-child(1){
+  width: 260px;
+  max-width: 260px;
+}
+table[data-view="pivot"] td:nth-child(1) a{
+  display: block;
+  max-width: 260px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* Celda */
+table[data-view="pivot"] th:nth-child(2),
+table[data-view="pivot"] td:nth-child(2){
+  width: 80px;
+  max-width: 80px;
+}
+
+/* Métricas */
+table[data-view="pivot"] th:nth-child(n+3),
+table[data-view="pivot"] td:nth-child(n+3){
+  width: 120px;
+  max-width: 120px;
+}
+
+/* Botones dentro de métricas: no expandir la celda */
+table[data-view="pivot"] .pivot-value button{
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* Mejor separación visual en encabezados */
+thead th{
+  border-right: 1px solid var(--border);
+  background-clip: padding-box;
+}
+thead th:last-child{ border-right: 0; }
+thead tr.head-top th{
+  border-bottom: 1px solid var(--border);
+  border-right-width: 2px; /* separa grupos */
+}
+thead tr.head-top th:last-child{ border-right: 0; }
+thead tr.head-sub th{
+  border-bottom: 2px solid var(--border);
+}
+/* En vista matriz: separadores gruesos entre grupos (Capas | Métodos | Celda) */
+thead tr.head-sub th:nth-child(5),
+thead tr.head-sub th:nth-child(7){
+  border-right-width: 2px;
+}
+
+/* Chips (capas y métodos) dentro de la tabla */
+td.chips-cell{ white-space: normal; }
+.pivot-value .chip{
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin: 2px 6px 2px 0;
+  padding: 6px 10px;
+  border-radius: 999px;
+  border: 1px solid var(--border);
+  background: #fff;
+  color: var(--uis-green-700);
+  font-size: 13px;
+  cursor: pointer;
+  line-height: 1.1;
+}
+.pivot-value .chip:hover{
+  border-color: var(--uis-green-600);
+  color: var(--uis-green-700);
+}
+.pivot-value .chip:active{ transform: translateY(1px); }
+
+th, td { border-bottom: 1px solid var(--border); padding: 12px 14px; font-size: 14px; vertical-align: top; white-space: nowrap; }
+td .layer-stack, .multiline { white-space: pre-line; }
+thead th { text-align: left; color: var(--muted); background: var(--uis-green-50); position: sticky; top: 0; z-index: 1; }
+
+thead th:first-child{ border-top-left-radius: var(--radius); }
+thead th:last-child { border-top-right-radius: var(--radius); }
+tbody tr:last-child td:first-child{ border-bottom-left-radius: var(--radius); }
+tbody tr:last-child td:last-child { border-bottom-right-radius: var(--radius); }
+tbody tr:hover { background: var(--uis-green-100); }
+td a { color: var(--uis-green-700); text-decoration: none; } td a:hover { text-decoration: underline; }
+td.image-link a { color: var(--uis-green-700); text-decoration: underline; cursor: pointer; }
+td.image-link a:hover { color: var(--uis-green-600); }
+/* Botón en celdas con valor */
+.pivot-value button {
+  background: #fff; color: var(--uis-green-700); border: 1px solid var(--border);
+  padding: 6px 8px; border-radius: 8px; font-size: 13px; cursor: pointer; box-shadow: 0 1px 0 rgba(16,24,40,.04);
+}
+.pivot-value button:hover { border-color: var(--uis-green-600); color: var(--uis-green-600); }
+
+/* Paginación */
+.table-area .pagination{ margin: 0; padding: 10px 12px; border-top: 1px solid var(--border); background: #fff; display: flex; gap: 8px; align-items: center; justify-content: center; }
+.pagination button{ padding: 8px 12px; }
+.pagination span { color: var(--muted); min-width: 140px; text-align: center; }
+
+/* Evidencia */
+.evidence-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; }
+#closeEvidenceBtn { background: #fff; color: var(--text); border: 1px solid var(--border); }
+#closeEvidenceBtn:hover { border-color: var(--uis-green-600); color: var(--uis-green-700); }
+.evidence-content { background: #fff; border: 1px solid var(--border); border-radius: 10px; padding: 12px; white-space: pre-wrap; line-height: 1.5; }
+
+/* Cabecera de dos niveles (vista matriz) */
+thead .head-top th{ text-align:center; font-weight:700; }
+thead .head-sub th{ text-align:left; }
+td.col-numero, th.col-numero{ width: 80px; }
+
+/* Responsive */
+@media (max-width: 1100px) {
+  .layout { grid-template-columns: 1fr; }
+  .controls, .evidence { position: static; }
+}
+
+/* Columna "Capas" tipo cilindro (para la vista por celda) – colores planos */
+.layer-cylinder{ display:inline-block; min-width:180px; padding:4px 8px 0 8px; }
+.layer-cylinder .layer-top{ display:none !important; }
+.layer-cylinder .layer-body{ display:flex; flex-direction:column; gap:6px; }
+.layer-slice{ position:relative; height:20px; border-radius:12px; background:var(--c,#999) !important; box-shadow:none !important; }
+.slice-label{ position:relative; z-index:1; display:inline-block; padding:0 8px; line-height:20px; font-weight:600; font-size:12px; color:#fff; text-shadow:none !important; }
+.idx-1{ --c:#3b82f6;} .idx-2{ --c:#06b6d4;} .idx-3{ --c:#a855f7;} .idx-4{ --c:#f59e0b;} .idx-5{ --c:#ef4444;}
+
+
+/* =========================
+   Filtros por rango (tipo Booking)
+   ========================= */
+.range-filters-wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.range-filters-title {
+  font-weight: 700;
+  color: var(--text);
+}
+
+.range-reset-all {
+  align-self: flex-start;
+  border: 1px solid var(--border);
+  background: var(--panel);
+  border-radius: 10px;
+  padding: 6px 10px;
+  cursor: pointer;
+  box-shadow: var(--shadow);
+}
+.range-reset-all:hover { border-color: #cbd5e1; }
+
+.range-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.range-item {
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  background: var(--panel);
+  padding: 10px 12px;
+  box-shadow: var(--shadow);
+}
+
+.range-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.range-name { font-weight: 700; }
+
+.range-inputs {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.range-num {
+  width: 110px;
+  padding: 6px 8px;
+  border-radius: 10px;
+  border: 1px solid var(--border);
+  background: #fff;
+}
+
+.range-dash { color: var(--muted); }
+
+.range-reset {
+  border: 1px solid var(--border);
+  background: #fff;
+  border-radius: 10px;
+  padding: 6px 10px;
+  cursor: pointer;
+}
+.range-reset:disabled { opacity: .5; cursor: not-allowed; }
+
+.range-bounds {
+  margin-top: 6px;
+  font-size: 12px;
+  color: var(--muted);
+}
+
+/* Dual range slider */
+.dual-range {
+  position: relative;
+  height: 8px;
+  margin-top: 4px;
+  --track: #e5e7eb;
+  --active: var(--uis-green-600);
+  background: linear-gradient(to right,
+    var(--track) 0%,
+    var(--track) var(--from, 0%),
+    var(--active) var(--from, 0%),
+    var(--active) var(--to, 100%),
+    var(--track) var(--to, 100%),
+    var(--track) 100%);
+  border-radius: 4px;
+}
+
+.dual-range input[type="range"] {
+  position: absolute;
+  left: 0; top: 0;
+  width: 100%;
+  height: 26px;
+  margin: 0;
+  background: transparent;
+  pointer-events: none; /* se habilita solo el thumb */
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+.dual-range input[type="range"]::-webkit-slider-runnable-track {
+  height: 8px;
+  background: transparent;
+  border-radius: 999px;
+}
+.dual-range input[type="range"]::-moz-range-track {
+  height: 8px;
+  background: transparent;
+  border-radius: 999px;
+}
+
+/* thumbs */
+.dual-range input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  pointer-events: auto;
+  width: 12px; height: 12px;
+  border-radius: 999px;
+  border: 2px solid #fff;
+  background: var(--uis-green-700);
+  box-shadow: 0 1px 2px rgba(0,0,0,.15);
+  margin-top: -2px; /* center */
+}
+.dual-range input[type="range"]::-moz-range-thumb {
+  pointer-events: auto;
+  width: 16px; height: 16px;
+  border-radius: 999px;
+  border: 2px solid #fff;
+  background: var(--uis-green-700);
+  box-shadow: 0 1px 2px rgba(0,0,0,.15);
+}
+
+/* Prevent max thumb being behind min when close */
+.dual-range input[type="range"].max { z-index: 2; }
+.dual-range input[type="range"].min { z-index: 3; }
+.evidence-content {
+  padding: 8px; /* Añadido para reducir padding y caber más */
+  overflow: auto; /* Añadido para scroll único en ambas direcciones */
+}
+.evidence-content table {
+  display: inline-block; /* Añadido para evitar block full-width y scrolls dobles */
+  min-width: auto; /* Añadido para adaptar al contenido */
+}
+.evidence-content th, .evidence-content td {
+  padding: 4px; /* Añadido para reducir padding en células y caber más */
+}
+.evidence-content table {
+  max-width: 100%; /* Añadido para caber en panel */
+  overflow-x: auto; /* Añadido para scroll horizontal si ancha */
+  display: block; /* Añadido para permitir scroll */
+}
+.evidence-content {
+  overflow-y: auto; /* Añadido para scroll vertical si alta */
+  max-height: 80vh; /* Añadido para limitar altura a viewport */
+}
+table[data-view="tables"] {
+  min-width: 0; /* Añadido para anular min-table-width general y permitir anchos % */
+  table-layout: fixed; /* Añadido para forzar distribución % */
+  width: 100%; /* Añadido para llenar el contenedor padre */
+}
+table[data-view="tables"] th:nth-child(1),
+table[data-view="tables"] td:nth-child(1) {
+  width: 40%; /* DOI: 2/5 partes, similar a 'images' */
+}
+table[data-view="tables"] th:nth-child(2),
+table[data-view="tables"] td:nth-child(2) {
+  width: 33.33%; /* Tabla: 1/3 parte, similar a 'images' */
+}
+table[data-view="images"] {
+  min-width: 0; /* Añadido para anular min-table-width general y permitir anchos % */
+  table-layout: fixed; /* Añadido para forzar distribución % */
+  width: 100%; /* Añadido para llenar el contenedor padre */
+}
+table[data-view="images"] th:nth-child(1),
+table[data-view="images"] td:nth-child(1) {
+  width: 40%; /* DOI: 2/5 partes */
+}
+table[data-view="images"] th:nth-child(2),
+table[data-view="images"] td:nth-child(2) {
+  width: 33.33%; /* Imagen: 1/3 parte */
+}
