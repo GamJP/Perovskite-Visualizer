@@ -1,88 +1,83 @@
-<!doctype html>
+<!DOCTYPE html>
+
 <html lang="es">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Visualizador Perovskitas – UIS</title>
-  <link rel="stylesheet" href="styles_patched_v3.css" />
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<title>Visualizador Perovskitas – UIS</title>
+<link href="styles_patched_v3.css" rel="stylesheet"/>
 </head>
 <body>
-  <header class="topbar brand">
-    <div class="brand-wrap">
-      <img class="brand-logo" src="assets/logo-uis.svg" alt="UIS" />
-      <div class="brand-titles">
-        <h1>Visualizador de Resultados – Perovskitas</h1>
-        <p class="brand-sub">Universidad Industrial de Santander</p>
-      </div>
-    </div>
-    <div class="protocol-warning" id="protocolWarning" hidden>
+<header class="topbar brand">
+<div class="brand-wrap">
+<img alt="UIS" class="brand-logo" src="assets/logo-uis.svg"/>
+<div class="brand-titles">
+<h1>Visualizador de Resultados – Perovskitas</h1>
+<p class="brand-sub">Proyecto de grado · Universidad Industrial de Santander</p>
+</div>
+</div>
+<div class="protocol-warning" hidden="" id="protocolWarning">
       Estás abriendo el archivo directamente (modo <code>file://</code>). Para cargar datos, usa
       <strong>Cargar JSON</strong> o publica esta carpeta en un hosting estático.
     </div>
-  </header>
-
-  <main class="layout">
-    <section class="controls">
-      <div class="control-row">
-        <div class="view-toggle">
-          <button id="pivotViewBtn">Vista por celda</button>
-          <button id="matrixViewBtn" class="active">Vista matriz</button>
-          <button id="imagesViewBtn">Vista imágenes</button>
-          <button id="tablesViewBtn">Vista tablas</button>
-        </div>
-      </div>
-
-      <div class="control-row">
-        <label for="searchInput">Buscar (título o DOI):</label>
-        <input id="searchInput" type="text" placeholder="Ej.: perovskite, 10.1234/..." />
-      </div>
-      <div class="control-row">
-        <div id="labelFilters" class="label-filters"></div>
-      </div>
-      <div class="control-row">
-        <div id="rangeFilters" class="range-filters"></div>
-      </div>
-
-      <div class="control-row buttons">
-        <button id="exportCsvBtn">Exportar CSV</button>
-        <button id="exportJsonBtn">Exportar JSON</button>
-      </div>
-
-      <div class="control-row small">
-        <button id="loadEntitiesBtn">Cargar JSON (entities.json)</button>
-        <input id="entitiesFile" type="file" accept="application/json" hidden />
-        <button id="loadPapersBtn">Cargar JSON (papers.json)</button>
-        <input id="papersFile" type="file" accept="application/json" hidden />
-	      <button id="loadImagesBtn">Cargar carpeta Imágenes</button>
-        <button id="loadTablesBtn">Cargar carpeta Tablas</button>
-      </div>
-
-      <div id="kpis" class="kpis"></div>
-    </section>
-
-    <section class="table-area">
-      <div id="tableContainer" class="table-container">
-        <div class="table-scroller">
-          <table>
-            <thead id="tableHead"></thead>
-            <tbody id="entitiesTbody"></tbody>
-          </table>
-        </div>
-        <div id="pagination" class="pagination"></div>
-      </div>
-    </section>
-
-    <aside id="evidencePanel" class="evidence" hidden>
-      <div class="evidence-header">
-        <h2>Evidencia</h2>
-        <button id="closeEvidenceBtn" title="Cerrar">×</button>
-      </div>
-      <div id="evidenceContent" class="evidence-content"></div>
-    </aside>
-  </main>
-
-  <!-- Muestras embebidas (puedes borrar si usas /data/*.json) -->
-  <script id="sample-papers-json" type="application/json">
+</header>
+<main class="layout">
+<section class="controls">
+<div class="control-row">
+<div class="view-toggle">
+<button id="pivotViewBtn">Vista por celda</button>
+<button class="active" id="matrixViewBtn">Vista matriz</button>
+<button id="imagesViewBtn">Vista imágenes</button>
+<button id="tablesViewBtn">Vista tablas</button>
+</div>
+</div>
+<div class="control-row">
+<label for="searchInput">Buscar (título o DOI):</label>
+<input id="searchInput" placeholder="Ej.: perovskite, 10.1234/..." type="text"/>
+</div>
+<div class="control-row">
+<div class="label-filters" id="labelFilters"></div>
+</div>
+<div class="control-row">
+<div class="range-filters" id="rangeFilters"></div>
+</div>
+<div class="control-row buttons">
+<button id="exportCsvBtn">Exportar CSV</button>
+<button id="exportJsonBtn">Exportar JSON</button>
+</div>
+<div class="control-row small">
+<button id="loadEntitiesBtn">Cargar entidades (.json)</button>
+<input accept="application/json" hidden="" id="entitiesFile" type="file"/>
+<input accept="application/json" hidden="" id="papersFile" type="file"/>
+<button id="loadImagesBtn">Cargar carpeta Imágenes</button>
+<button id="loadTablesBtn">Cargar carpeta Tablas</button>
+</div>
+<div class="kpis" id="kpis"></div>
+</section>
+<section class="table-area">
+<div class="table-container" id="tableContainer">
+<div class="table-scroller">
+<table>
+<thead id="tableHead"></thead>
+<tbody id="entitiesTbody"></tbody>
+</table>
+</div>
+<div class="pagination" id="pagination"></div>
+</div>
+</section>
+<aside class="evidence" hidden="" id="evidencePanel">
+<div class="evidence-header">
+<h2>Evidencia</h2>
+<button id="closeEvidenceBtn" title="Cerrar">×</button>
+</div>
+<div class="evidence-content" id="evidenceContent"></div>
+</aside>
+</main>
+<footer class="site-footer">
+<div>Hecho para el plan de trabajo de grado · UIS.</div>
+</footer>
+<!-- Muestras embebidas (puedes borrar si usas /data/*.json) -->
+<script id="sample-papers-json" type="application/json">
   {
     "__embedded__": true,
     "papers": [
@@ -90,8 +85,7 @@
     ]
   }
   </script>
-
-  <script id="sample-entities-json" type="application/json">
+<script id="sample-entities-json" type="application/json">
   {
     "__embedded__": true,
     "entities": [
@@ -118,13 +112,12 @@
       { "entity_id":"c1_ff","paper_id":"doi-ejemplo-1","label":"FF","value":0.2,"cell_id":1 },
       { "entity_id":"c2_ff","paper_id":"doi-ejemplo-1","label":"FF","value":0.7,"cell_id":2 },
 
-      { "entity_id":"c1_eff","paper_id":"doi-ejemplo-1","label":"Eficiencia","value":15,"units":"%","cell_id":1 }
-      { "entity_id":"img1", "paper_id":"doi-ejemplo-1", "label":"Imagen", "value":"fig1.jpg", "section":"Images", "confidence":1.0, "path":"Imágenes/doi-ejemplo-1/fig1.jpg" },
-{ "entity_id":"img2", "paper_id":"doi-ejemplo-1", "label":"Imagen", "value":"fig2.png", "section":"Images", "confidence":1.0, "path":"Imágenes/doi-ejemplo-1/fig2.png" }
+      { "entity_id":"c1_eff","paper_id":"doi-ejemplo-1","label":"Eficiencia","value":15,"units":"%","cell_id":1 },
+      { "entity_id":"img1", "paper_id":"doi-ejemplo-1", "label":"Imagen", "value":"fig1.jpg", "section":"Images", "confidence":1.0, "path":"imagenes/doi-ejemplo-1/fig1.jpg" },
+      { "entity_id":"img2", "paper_id":"doi-ejemplo-1", "label":"Imagen", "value":"fig2.png", "section":"Images", "confidence":1.0, "path":"imagenes/doi-ejemplo-1/fig2.png" }
     ]
   }
   </script>
-
-  <script src="app_patched_ui_v7.js"></script>
+<script src="app_patched_ui_v7.js"></script>
 </body>
 </html>
