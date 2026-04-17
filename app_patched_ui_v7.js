@@ -1,6 +1,5 @@
-/* Estado global */
 const state = {
-  viewMode: 'matrix',          // 'matrix' | 'pivot'
+  viewMode: 'matrix',
   papersById: new Map(),
   entities: [],
   filtered: [],
@@ -10,10 +9,9 @@ const state = {
   cellIndex: new Map(),
   rangeMeta: {},
   labelsAvailable: [],
-  imagesEntities: [], // Añadido para imagenes independientes
-  tablesEntities: [], // Añadido para tablas independientes
+  imagesEntities: [], 
+  tablesEntities: [], 
 };
-
 function $(sel) { return document.querySelector(sel); }
 function el(tag, attrs = {}, children = []) {
   const node = document.createElement(tag);
@@ -25,12 +23,26 @@ function el(tag, attrs = {}, children = []) {
   children.forEach(c => node.appendChild(c));
   return node;
 }
-
+function updateViewDependentControls() {
+  const labelFilters = $("#labelFilters");
+  const labelRow = labelFilters?.closest(".control-row");
+  if (labelRow) {
+    const showLabelFilters = (state.viewMode === "matrix");
+    labelRow.hidden = !showLabelFilters;
+    labelRow.style.display = showLabelFilters ? "flex" : "none";
+  }
+  const rangeFilters = $("#rangeFilters");
+  if (rangeFilters) {
+    const showRangeFilters = !["images", "tables"].includes(state.viewMode);
+    rangeFilters.style.display = showRangeFilters ? "block" : "none";
+  }
+}
 async function init() {
-  if (location.protocol === "file:") $("#protocolWarning").hidden = false;
-
-  // Botones de vista
+  if (location.protocol === "file:" && $("#protocolWarning")) {
+    $("#protocolWarning").hidden = false;
+  }
   const pv = $("#pivotViewBtn"), mv = $("#matrixViewBtn");
+
   const setActive = () => {
     pv?.classList.toggle("active", state.viewMode === "pivot");
     mv?.classList.toggle("active", state.viewMode === "matrix");
@@ -38,6 +50,7 @@ async function init() {
     iv?.classList.toggle("active", state.viewMode === "images");
     const tv = $("#tablesViewBtn");
     tv?.classList.toggle("active", state.viewMode === "tables");
+    updateViewDependentControls();
   };
   pv?.addEventListener("click", () => { state.viewMode = "pivot";  setActive(); applyFilters(); });
   mv?.addEventListener("click", () => { state.viewMode = "matrix"; setActive(); applyFilters(); });
@@ -46,51 +59,32 @@ async function init() {
   const tv = $("#tablesViewBtn");
   tv?.addEventListener("click", () => { state.viewMode = "tables"; setActive(); applyFilters(); });
   setActive();
-
-  // Filtros y acciones
   $("#searchInput").addEventListener("input", e => { state.filters.search = e.target.value.trim().toLowerCase(); state.page = 1; applyFilters(); });
-  // Año: esta app no filtra por año (se ocultan los inputs si existen)
   const yFrom = $("#yearFrom"), yTo = $("#yearTo");
   const yearRow = (yFrom || yTo)?.closest?.(".control-row");
   if (yearRow) yearRow.hidden = true;
   $("#exportCsvBtn").addEventListener("click", exportCSV);
   $("#exportJsonBtn").addEventListener("click", exportJSON);
   $("#closeEvidenceBtn").addEventListener("click", () => { $("#evidencePanel").hidden = true; });
-
   $("#loadEntitiesBtn").addEventListener("click", () => $("#entitiesFile").click());
-  $("#entitiesFile").addEventListener("change", handleEntitiesFile);
-  $("#loadPapersBtn").addEventListener("click", () => $("#papersFile").click());
-  $("#papersFile").addEventListener("change", handlePapersFile);
-  $("#loadImagesBtn").addEventListener("click", scanLocalImagesFolder);
-  $("#loadTablesBtn").addEventListener("click", scanLocalTablesFolder);
-
-  // Intentar cargar /data; si no, usar embebidos
+  $("#loadEntitiesBtn")?.addEventListener("click", () => $("#entitiesFile").click());
+  $("#entitiesFile")?.addEventListener("change", handleEntitiesFile);
+  $("#loadImagesBtn")?.addEventListener("click", scanLocalImagesFolder);
+  $("#loadTablesBtn")?.addEventListener("click", scanLocalTablesFolder);
   let loaded = false;
   if (location.protocol !== "file:") loaded = await tryLoadFromDataFolder();
   if (!loaded) loadFromEmbedded();
   postLoadSetup();
 }
-
-
-/* =============================
-   Normalización de entrada
-   - Formato antiguo: { papers:[...] } y { entities:[...] }
-   - Formato FAIR (nuevo): Array de artículos (como perovskite_dataset_fair.json)
-   ============================= */
-
 function normalizeEntitiesInput(raw) {
-  // Formato antiguo
   if (raw && typeof raw === 'object' && Array.isArray(raw.entities)) {
     return { mode: 'legacy' };
   }
-
-  // Formato FAIR: array de artículos
   if (Array.isArray(raw)) {
     const first = raw[0];
     const looksFair = !!(first && typeof first === 'object' && ('doi' in first || 'capas' in first || 'cells' in first || 'samples' in first));
     if (looksFair) return normalizeFairDataset(raw);
   }
-
   return { mode: 'unknown' };
 }
 function cleanStr(v) {
@@ -105,7 +99,6 @@ function ensureUrl(doi) {
 function normalizeFairDataset(articles) {
   const papers = [];
   const entities = [];
-
   const toArr = (v) => Array.isArray(v) ? v : (v == null ? [] : [v]);
   const cleanStr = (v) => String(v ?? '').trim();
   const joinBar = (arr) => arr.map(cleanStr).filter(v => v && v !== '#').join(" | ");
@@ -114,17 +107,12 @@ function normalizeFairDataset(articles) {
     if (!a.length) return null;
     return (a.length === 1) ? a[0] : a.join(" | ");
   };
-
-  
-
   articles.forEach((a, idx) => {
     const paper_id = cleanStr(a.id || a.paper_id || a.doi || `paper_${idx + 1}`);
     const doi = cleanStr(a.doi || "");
     const title = cleanStr(a.title || "");
     const url = cleanStr(a.url || a.link || "") || ensureUrl(doi);
-
         papers.push({ paper_id, doi, title, url });
-
     const pushListEntity = (label, values, section = "Methods", confidence = 0.8, extra = {}) => {
       const v = joinBar(toArr(values));
       if (!v) return;
@@ -138,8 +126,6 @@ function normalizeFairDataset(articles) {
         ...extra
       });
     };
-
-    // --- Capas ---
     const capas = a.capas || a.layers || {};
     const getCapasVal = (keys) => {
       for (const k of keys) {
@@ -147,7 +133,6 @@ function normalizeFairDataset(articles) {
       }
       return null;
     };
-
     const capMap = [
       { keys: ["Substrate/TCO", "Substrato/TCO"], label: "Substrato/TCO" },
       { keys: ["ETL"], label: "ETL" },
@@ -155,15 +140,10 @@ function normalizeFairDataset(articles) {
       { keys: ["HTL"], label: "HTL" },
       { keys: ["Electrode", "Electrodo"], label: "Electrode" }
     ];
-
     capMap.forEach(m => pushListEntity(m.label, getCapasVal(m.keys), "Methods", 0.85));
-
-    // --- Métodos ---
     const met = a.metodos || a.methods || {};
     pushListEntity("Síntesis", met.synthesis_method || met.synthesis || met.Synthesis || [], "Methods", 0.8);
     pushListEntity("Fabricación", met.fabrication_technique || met.fabrication || met.Fabrication || [], "Methods", 0.8);
-
-    // --- Capas (cilindro) opcional para vista detallada ---
     const getOneSlice = (vals) => firstOrJoined(toArr(vals));
     const slices = [
       getOneSlice(getCapasVal(capMap[0].keys)),
@@ -172,7 +152,6 @@ function normalizeFairDataset(articles) {
       getOneSlice(getCapasVal(capMap[3].keys)),
       getOneSlice(getCapasVal(capMap[4].keys))
     ].filter(Boolean);
-
     if (slices.length) {
       entities.push({
         entity_id: `${paper_id}__Capas__p`,
@@ -183,26 +162,17 @@ function normalizeFairDataset(articles) {
         confidence: 0.7
       });
     }
-
-    // --- Celdas ---
     const cells = Array.isArray(a.cells) ? a.cells : [];
     const metrics_global = a.metrics_global || {};
-
-    // También soporta muestras en texto: a.samples[] o metrics_global.samples[]
     const samplesList = [];
     if (Array.isArray(a.samples)) samplesList.push(...a.samples);
     if (Array.isArray(metrics_global.samples)) samplesList.push(...metrics_global.samples);
-
-    // Unifica métricas por (celda, etiqueta): si llega otra fuente (p.ej. metrics_global.samples),
-// no la descartamos; mergeamos valores/evidencia.
-    const metricByKey = new Map(); // key = `${cell_id}||${label}` -> entity object
-
+    const metricByKey = new Map();
     const _splitPipe = (s) => {
       const t = cleanStr(s || "");
       if (!t) return [];
       return t.split("|").map(x => x.trim()).filter(Boolean);
     };
-
     const _mergePipe = (base, extra) => {
       const out = [];
       const seen = new Set();
@@ -214,23 +184,19 @@ function normalizeFairDataset(articles) {
       }
       return out.join(" | ");
     };
-
     const _mergeEvidence = (base, extra) => {
       const b = cleanStr(base || "");
       const e = cleanStr(extra || "");
       if (!e) return b;
       if (!b) return e;
-      // Evita duplicar exactamente el mismo texto
       if (b.includes(e)) return b;
       return b + "\n\n" + e;
     };
-
     const pushMetric = (cell_id, label, rawVal, evidence = "", confidence = 0.8, extra = {}) => {
       const v = firstOrJoined(toArr(rawVal));
       if (!v) return;
       const key = `${cell_id}||${label}`;
       const ev = cleanStr(evidence || "");
-
       if (metricByKey.has(key)) {
         const ent = metricByKey.get(key);
         ent.value = _mergePipe(ent.value, v);
@@ -238,7 +204,6 @@ function normalizeFairDataset(articles) {
         ent.confidence = Math.max(ent.confidence ?? 0, confidence ?? 0);
         return;
       }
-
       const ent = {
         entity_id: `${paper_id}__c${cell_id}__${label}`,
         paper_id,
@@ -249,22 +214,18 @@ function normalizeFairDataset(articles) {
         section: "Results",
         span_text: ev,
         confidence,
-        ...extra, // Añadido para marcar fallback
+        ...extra,
       };
       entities.push(ent);
       metricByKey.set(key, ent);
     };
-
     const parseSampleLine = (line, idxDefault) => {
       const raw = cleanStr(line);
       if (!raw) return null;
-
       const mId = raw.match(/sample\s*(\d+)/i);
       const cid = mId ? parseInt(mId[1], 10) : (idxDefault + 1);
-
       const inside = (raw.match(/\[([\s\S]*)\]/) || [])[1] || raw;
       const parts = inside.split(/\s*,\s*/);
-
       const map = {
         pce: "PCE",
         jsc: "Jsc",
@@ -274,7 +235,6 @@ function normalizeFairDataset(articles) {
         efficiency: "Eficiencia",
         eta: "Eficiencia"
       };
-
       const metrics = {};
       for (const part of parts) {
         const mm = part.match(/^\s*([A-Za-z]+)\s*:\s*(.+?)\s*$/);
@@ -286,11 +246,8 @@ function normalizeFairDataset(articles) {
         if (!val || val === "#" || /^#+$/.test(val)) continue;
         metrics[label] = val;
       }
-
       return { cid, metrics, evidence: raw };
     };
-
-    // 1) Fuente estructurada: cells[]
     if (cells.length) {
       cells.forEach((c, iCell) => {
         const cid = iCell + 1;
@@ -299,29 +256,19 @@ function normalizeFairDataset(articles) {
         pushMetric(cid, "Jsc", c.Jsc, evidence, 0.85);
         pushMetric(cid, "Voc", c.Voc, evidence, 0.85);
         pushMetric(cid, "FF", c.FF, evidence, 0.85);
-
-        // Eficiencia: solo si viene explícita
         const effVal = (c.Eficiencia ?? c.efficiency ?? c.eta);
         if (effVal !== undefined && effVal !== null && String(effVal).trim() !== "") {
           pushMetric(cid, "Eficiencia", effVal, evidence, 0.85);
         }
       });
     }
-
-    // 2) Fuente en texto: samples[] (extrae PCE/Jsc/Voc/FF/Eficiencia)
-    // IMPORTANT: estos samples en texto deben crear celdas ADICIONALES.
-    // Si ya existen X celdas en a.cells[], y hay Y samples en texto, el resultado será X+Y celdas.
     if (samplesList.length) {
-      const base = cells.length; // offset
+      const base = cells.length;
       samplesList.forEach((line, iS) => {
         const parsed = parseSampleLine(line, iS);
         if (!parsed) return;
         const { metrics, evidence } = parsed;
-
-        // Crea una nueva celda para cada línea de sample en texto
         const cid = base + iS + 1;
-
-        // Confianza menor: viene parseado de texto
         if (metrics.PCE) pushMetric(cid, "PCE", metrics.PCE, evidence, 0.75 );
         if (metrics.Jsc) pushMetric(cid, "Jsc", metrics.Jsc, evidence, 0.75);
         if (metrics.Voc) pushMetric(cid, "Voc", metrics.Voc, evidence, 0.75);
@@ -329,41 +276,29 @@ function normalizeFairDataset(articles) {
         if (metrics.Eficiencia) pushMetric(cid, "Eficiencia", metrics.Eficiencia, evidence, 0.75);
       });
     }
-
-    // 3) Siempre agregar metrics_global como celdas adicionales individuales (una por valor)
     const evidenceGlobal = cleanStr((metrics_global.samples && metrics_global.samples[0]) || "");
     const baseGlobal = cells.length + samplesList.length;
-    let globalCidCounter = baseGlobal; // Contador para cids únicos por valor
-
-    // PCE
+    let globalCidCounter = baseGlobal;
     const pceValues = toArr(metrics_global.PCE).filter(v => cleanStr(v) && cleanStr(v) !== '#');
     pceValues.forEach((val, idx) => {
       globalCidCounter++;
       pushMetric(globalCidCounter, "PCE", val, evidenceGlobal, 0.75, { isGlobalFallback: true });
     });
-
-    // Jsc
     const jscValues = toArr(metrics_global.Jsc).filter(v => cleanStr(v) && cleanStr(v) !== '#');
     jscValues.forEach((val, idx) => {
       globalCidCounter++;
       pushMetric(globalCidCounter, "Jsc", val, evidenceGlobal, 0.75, { isGlobalFallback: true });
     });
-
-    // Voc
     const vocValues = toArr(metrics_global.Voc).filter(v => cleanStr(v) && cleanStr(v) !== '#');
     vocValues.forEach((val, idx) => {
       globalCidCounter++;
       pushMetric(globalCidCounter, "Voc", val, evidenceGlobal, 0.75, { isGlobalFallback: true });
     });
-
-    // FF
     const ffValues = toArr(metrics_global.FF).filter(v => cleanStr(v) && cleanStr(v) !== '#');
     ffValues.forEach((val, idx) => {
       globalCidCounter++;
       pushMetric(globalCidCounter, "FF", val, evidenceGlobal, 0.75, { isGlobalFallback: true });
     });
-
-    // Eficiencia (maneja si es array o valor simple)
     const effValRaw = (metrics_global.Eficiencia ?? metrics_global.efficiency ?? metrics_global.eta);
     const effValues = toArr(effValRaw).filter(v => cleanStr(v) && cleanStr(v) !== '#');
     effValues.forEach((val, idx) => {
@@ -380,7 +315,7 @@ function normalizeFairDataset(articles) {
         value: `Tabla ${idx + 1} (página ${tbl.page || '#'})`,
         section: "Tables",
         confidence: 1.0,
-        table: tbl // Almacena datos de tabla para mostrar
+        table: tbl
       });
     });
     const folderDoi = cleanStr(doi).replace(/[\/:]/g, '_');
@@ -399,26 +334,19 @@ function normalizeFairDataset(articles) {
       });
     });
   });
-
   return { mode: 'fair', papersJson: { papers }, entitiesJson: { entities } };
 }
-
-
 async function tryLoadFromDataFolder() {
   try {
-    // Primero intentamos leer entities.json (puede ser el formato antiguo o el FAIR)
     const eRes = await fetch("data/entities.json", { cache: "no-store" });
     if (!eRes.ok) throw new Error("No se pudo leer data/entities.json");
     const rawEntities = await eRes.json();
-
     const normalized = normalizeEntitiesInput(rawEntities);
     if (normalized.mode === "fair") {
       setPapers(normalized.papersJson);
       setEntities(normalized.entitiesJson);
       return true;
     }
-
-    // Formato antiguo -> requiere papers.json
     const pRes = await fetch("data/papers.json", { cache: "no-store" });
     if (!pRes.ok) throw new Error("No se pudo leer data/papers.json");
     setPapers(await pRes.json());
@@ -439,12 +367,9 @@ function loadFromEmbedded() {
       return;
     }
   }
-
-  // Formato antiguo (papers + entities separados)
   const p = $("#sample-papers-json");   if (p) setPapers(JSON.parse(p.textContent));
   const e2 = $("#sample-entities-json"); if (e2) setEntities(JSON.parse(e2.textContent));
 }
-
 function setPapers(papersJson) {
   state.papersById.clear();
   (papersJson.papers || []).forEach(p => state.papersById.set(p.paper_id, p));
@@ -458,13 +383,13 @@ function setEntities(entitiesJson) {
   state.page = 1; applyFilters();
 }
 function buildLabelsAvailable() {
-  state.groupsAvailable = ['capas', 'metodos', 'celdas']; // Solo estos tres grupos
+  state.groupsAvailable = ['capas', 'metodos', 'celdas'];
   state.groupLabels = {
     capas: new Set(['Substrato/TCO', 'ETL', 'Perovskita', 'HTL', 'Electrode', 'Capas']),
     metodos: new Set(['Síntesis', 'Fabricación']),
     celdas: new Set(['PCE', 'Jsc', 'Voc', 'FF', 'Eficiencia'])
   };
-  renderGroupFilters(); // Cambia a renderGroupFilters en lugar de renderLabelFilters
+  renderGroupFilters();
 }
 function renderGroupFilters() {
   const box = $("#labelFilters"); box.innerHTML = "";
@@ -472,7 +397,6 @@ function renderGroupFilters() {
     box.appendChild(el("div", { class: "badge" , html: "Sin grupos (carga datos)" }));
     return;
   }
-  // Cambia state.filters.labels a state.filters.groups (inicializa si vacío)
   if (!state.filters.groups) state.filters.groups = new Set();
   if (state.filters.groups.size === 0) state.groupsAvailable.forEach(g => state.filters.groups.add(g));
   state.groupsAvailable.forEach(group => {
@@ -487,35 +411,25 @@ function renderGroupFilters() {
     const badge = el("label", { for: id, class: "badge" }, [ input, el("span", {}, [document.createTextNode(group.charAt(0).toUpperCase() + group.slice(1))]) ]);
     box.appendChild(badge);
   });
+  updateViewDependentControls();
 }
-
-
-/* =============================
-   Filtros por rango (FF, Voc, Jsc, PCE)
-   - Slider doble + inputs manuales
-   - Se aplica a nivel de CELDA (paper_id + cell_id)
-   ============================= */
-
 const RANGE_METRICS = [
   { key: "PCE", label: "PCE (%)", unit: "%", step: 0.1 },
   { key: "Jsc", label: "Jsc (mA/cm²)", unit: "mA/cm²", step: 0.1 },
   { key: "Voc", label: "Voc (V)", unit: "V", step: 0.01 },
   { key: "FF",  label: "FF (%)", unit: "%", step: 0.1 },
 ];
-
 function _splitBar(v) {
   const s = (v == null) ? "" : String(v);
   return s.split("|").map(x => x.trim()).filter(Boolean);
 }
-
 function _firstNumber(s) {
   const m = String(s).match(/[-+]?\d*\.?\d+(?:[eE][-+]?\d+)?/);
   return m ? Number(m[0]) : null;
 }
-
 function parseMetricNumbers(metricKey, rawValue, rawUnits) {
   const units = String(rawUnits ?? "").toLowerCase();
-  const part = String(rawValue ?? "").trim(); // Ahora es un solo valor
+  const part = String(rawValue ?? "").trim();
   if (!part || part === "#" || /^#+$/.test(part)) return [];
   const pLower = part.toLowerCase();
   const num = _firstNumber(part);
@@ -524,59 +438,47 @@ function parseMetricNumbers(metricKey, rawValue, rawUnits) {
   if (metricKey === "Voc") {
     const ismV = pLower.includes("mv") || units.includes("mv");
     if (ismV) v = v * 0.001;
-    else if (v > 5) v = v * 0.001; // heurística: Voc rara vez >5 V en estos papers
+    else if (v > 5) v = v * 0.001;
     return [v];
   }
   if (metricKey === "Jsc") {
-    // Canon: mA/cm²
     if (pLower.includes("µa") || pLower.includes("ua") || units.includes("µa") || units.includes("ua")) v = v * 0.001;
     else if ((pLower.includes(" a") || pLower.endsWith("a") || units === "a") && !pLower.includes("ma") && !units.includes("ma")) v = v * 1000;
-    // si está en mA ya está bien
     return [v];
   }
   if (metricKey === "PCE" || metricKey === "FF") {
     const hasPct = pLower.includes("%") || units.includes("%");
-    if (!hasPct && v <= 1) v = v * 100; // si viene fracción
+    if (!hasPct && v <= 1) v = v * 100;
     return [v];
   }
   return [v];
 }
-
 function buildCellIndex() {
   state.cellIndex = new Map();
   const metricsSet = new Set(RANGE_METRICS.map(m => m.key));
-
   for (const e of state.entities) {
     const label = String(e.label ?? "").trim();
     if (!metricsSet.has(label)) continue;
-
     const pid = e.paper_id;
     const cid = getEntityCellId(e);
     if (pid == null || cid == null) continue;
-
     const key = `${pid}__${cid}`;
     if (!state.cellIndex.has(key)) {
       state.cellIndex.set(key, { paper_id: pid, cell_id: cid, metrics: {} });
     }
     const info = state.cellIndex.get(key);
-
     const nums = parseMetricNumbers(label, e.value, e.units);
     if (!nums.length) continue;
-
     if (!info.metrics[label]) info.metrics[label] = [];
-    // agrega sin duplicar
     for (const n of nums) {
       if (!info.metrics[label].includes(n)) info.metrics[label].push(n);
     }
   }
 }
-
 function computeRangeMetaAndInit() {
   const meta = {};
   const metrics = RANGE_METRICS.map(m => m.key);
-
   for (const k of metrics) meta[k] = { min: null, max: null };
-
   for (const [, cinfo] of state.cellIndex) {
     for (const k of metrics) {
       const arr = cinfo.metrics?.[k] || [];
@@ -587,10 +489,7 @@ function computeRangeMetaAndInit() {
       }
     }
   }
-
   state.rangeMeta = meta;
-
-  // Inicializa rangos si no existen
   if (!state.filters.ranges) state.filters.ranges = {};
   for (const k of metrics) {
     const gmin = meta[k].min, gmax = meta[k].max;
@@ -599,7 +498,6 @@ function computeRangeMetaAndInit() {
     } else if (!state.filters.ranges[k]) {
       state.filters.ranges[k] = { min: gmin, max: gmax, disabled: false };
     } else {
-      // si ya existía, clamp al nuevo global
       const r = state.filters.ranges[k];
       r.min = (r.min == null || isNaN(r.min)) ? gmin : Math.max(gmin, Number(r.min));
       r.max = (r.max == null || isNaN(r.max)) ? gmax : Math.min(gmax, Number(r.max));
@@ -607,24 +505,19 @@ function computeRangeMetaAndInit() {
     }
   }
 }
-
 function _clamp(x, a, b) { return Math.min(Math.max(x, a), b); }
-
 function renderRangeFilters() {
   const root = $("#rangeFilters");
   if (!root) return;
   root.innerHTML = "";
-
   const meta = state.rangeMeta || {};
   if (!state.entities.length) {
-    root.appendChild(el("div", { class: "muted", html: "Carga un JSON para habilitar filtros por rango." }));
+    root.innerHTML = "";
     return;
   }
-
   const wrap = el("div", { class: "range-filters-wrap" }, []);
   const title = el("div", { class: "range-filters-title", html: "Filtrar por rango" });
   wrap.appendChild(title);
-
   const resetAllBtn = el("button", { class: "range-reset-all", type: "button", html: "Reset rangos" });
   resetAllBtn.addEventListener("click", () => {
     for (const m of RANGE_METRICS) {
@@ -636,21 +529,16 @@ function renderRangeFilters() {
     state.page = 1; applyFilters();
   });
   wrap.appendChild(resetAllBtn);
-
   const list = el("div", { class: "range-list" }, []);
-
   for (const m of RANGE_METRICS) {
     const g = meta[m.key] || {};
     const gmin = g.min, gmax = g.max;
     const r = state.filters.ranges?.[m.key] || { min: gmin, max: gmax, disabled: false };
-
     const disabled = (gmin == null || gmax == null || r.disabled);
     const item = el("div", { class: "range-item" }, []);
-
     const head = el("div", { class: "range-head" }, [
       el("div", { class: "range-name", html: escapeHtml(m.label) }),
     ]);
-
     const inputs = el("div", { class: "range-inputs" }, []);
     const inMin = el("input", { class: "range-num", type: "number", step: String(m.step), value: (r.min ?? "").toString(), placeholder: (gmin==null?"—":String(gmin))});
     const inMax = el("input", { class: "range-num", type: "number", step: String(m.step), value: (r.max ?? "").toString(), placeholder: (gmax==null?"—":String(gmax))});
@@ -658,16 +546,12 @@ function renderRangeFilters() {
     const dash = el("span", { class: "range-dash", html: "—" });
     const resetBtn = el("button", { class: "range-reset", type: "button", html: "↺", title: "Reset" });
     resetBtn.disabled = !!disabled;
-
     inputs.appendChild(inMin); inputs.appendChild(dash); inputs.appendChild(inMax); inputs.appendChild(resetBtn);
     head.appendChild(inputs);
-
     item.appendChild(head);
-
     const slider = el("div", { class: "dual-range" }, []);
     const sMin = el("input", { class: "range-slider min", type: "range" });
     const sMax = el("input", { class: "range-slider max", type: "range" });
-
     if (!disabled) {
       sMin.min = String(gmin); sMin.max = String(gmax); sMin.step = String(m.step);
       sMax.min = String(gmin); sMax.max = String(gmax); sMax.step = String(m.step);
@@ -676,40 +560,30 @@ function renderRangeFilters() {
     } else {
       sMin.disabled = true; sMax.disabled = true;
     }
-
     slider.appendChild(sMin);
     slider.appendChild(sMax);
     item.appendChild(slider);
-
     const bounds = el("div", { class: "range-bounds", html: disabled ? "Sin datos" : `min: ${gmin} · max: ${gmax}` });
     item.appendChild(bounds);
-
     const sync = () => {
       if (disabled) return;
       let vmin = Number(inMin.value);
       let vmax = Number(inMax.value);
       if (isNaN(vmin)) vmin = Number(sMin.value);
       if (isNaN(vmax)) vmax = Number(sMax.value);
-
       vmin = _clamp(vmin, gmin, gmax);
       vmax = _clamp(vmax, gmin, gmax);
-
       if (vmin > vmax) {
-        // Mantener orden
         const t = vmin; vmin = vmax; vmax = t;
       }
-
       inMin.value = String(vmin);
       inMax.value = String(vmax);
       sMin.value = String(vmin);
       sMax.value = String(vmax);
-
       state.filters.ranges[m.key] = { min: vmin, max: vmax, disabled: false };
       _updateDualRangeFill(slider, vmin, vmax, gmin, gmax);
     };
-
     const commit = () => { sync(); state.page = 1; applyFilters(); };
-
     sMin.addEventListener("input", () => { 
       if (Number(sMin.value) > Number(sMax.value)) sMin.value = sMax.value;
       inMin.value = sMin.value; 
@@ -720,28 +594,21 @@ function renderRangeFilters() {
       inMax.value = sMax.value; 
       commit();
     });
-
     inMin.addEventListener("input", commit);
     inMax.addEventListener("input", commit);
     inMin.addEventListener("change", commit);
     inMax.addEventListener("change", commit);
-
     resetBtn.addEventListener("click", () => {
       inMin.value = String(gmin);
       inMax.value = String(gmax);
       commit();
     });
-
-    // set fill initially
     if (!disabled) _updateDualRangeFill(slider, Number(sMin.value), Number(sMax.value), gmin, gmax);
-
     list.appendChild(item);
   }
-
   wrap.appendChild(list);
   root.appendChild(wrap);
 }
-
 function _updateDualRangeFill(container, vmin, vmax, gmin, gmax) {
   const span = (gmax - gmin) || 1;
   const from = ((vmin - gmin) / span) * 100;
@@ -751,8 +618,6 @@ function _updateDualRangeFill(container, vmin, vmax, gmin, gmax) {
 }
 function applyFilters() {
   const { groups, search, ranges } = state.filters;
-
-  // 1) Filtro por búsqueda a nivel de paper
   const allowedPapersBySearch = new Set();
   if (!search) {
     for (const [pid] of state.papersById) allowedPapersBySearch.add(pid);
@@ -763,8 +628,6 @@ function applyFilters() {
       if (hay.includes(q)) allowedPapersBySearch.add(pid);
     }
   }
-
-  // 2) Filtros por rango (tipo Booking) a nivel de CELDA
   const active = {};
   const meta = state.rangeMeta || {};
   const eps = 1e-9;
@@ -775,48 +638,35 @@ function applyFilters() {
     if (gmin == null || gmax == null) continue;
     const rmin = (r.min == null || isNaN(r.min)) ? gmin : Number(r.min);
     const rmax = (r.max == null || isNaN(r.max)) ? gmax : Number(r.max);
-    // Activo solo si recorta el rango global
     if (rmin > gmin + eps || rmax < gmax - eps) active[k] = { min: rmin, max: rmax };
   }
-
   const allowedCells = new Set();
   const allowedPapers = new Set();
-
-  // Si no hay filtros activos de rango, entonces todas las celdas de papers permitidos pasan
   const hasActiveRanges = Object.keys(active).length > 0;
-
   for (const [ckey, cinfo] of state.cellIndex) {
     const pid = cinfo.paper_id;
     if (!allowedPapersBySearch.has(pid)) continue;
-
     if (!hasActiveRanges) {
       allowedCells.add(ckey);
       allowedPapers.add(pid);
       continue;
     }
-
     let ok = true;
     for (const [metric, lim] of Object.entries(active)) {
       const arr = cinfo.metrics?.[metric] || [];
       if (!arr.length) { ok = false; break; }
-
-      // pasa si ALGUNO de los valores está dentro del rango
       const pass = arr.some(v => (v >= lim.min && v <= lim.max));
       if (!pass) { ok = false; break; }
     }
-
     if (ok) {
       allowedCells.add(ckey);
       allowedPapers.add(pid);
     }
   }
-
-  // 3) Construir state.filtered: incluye entidades paper-level si el paper tiene al menos una celda permitida
   let rows = state.entities.filter(e => {
     const pid = e.paper_id;
     if (!allowedPapersBySearch.has(pid)) return false;
     if (!allowedPapers.has(pid) && hasActiveRanges) return false;
-
     let groupOk = (groups.size === 0);
     if (!groupOk) {
       for (const g of groups) {
@@ -827,8 +677,6 @@ function applyFilters() {
       }
     }
     if (!groupOk) return false;
-
-    // Si es entidad por celda, debe estar en allowedCells cuando hay filtro por rango
     const cid = e.cell_id != null ? getEntityCellId(e) : null;
     if (hasActiveRanges && cid != null) {
       const key = `${pid}__${cid}`;
@@ -840,28 +688,54 @@ function applyFilters() {
   state.filtered = rows;
   renderKPIs(); renderTable(); renderPagination();
 }
-
-/* KPIs */
 function renderKPIs() {
   const kpis = $("#kpis");
   const totalPapers = new Set(state.filtered.map(e => e.paper_id)).size;
-  const countsByLabel = state.filtered.reduce((acc, e) => (acc[e.label]=(acc[e.label]||0)+1, acc), {});
   const totalEntities = state.filtered.length;
   kpis.innerHTML = "";
-  const c1 = el("div", { class: "kpi" }, [ el("div", { class: "label", html: "Artículos (filtrados)" }), el("div", { class: "value", html: String(totalPapers) }) ]);
-  const c2 = el("div", { class: "kpi" }, [ el("div", { class: "label", html: "Entidades (filtradas)" }), el("div", { class: "value", html: String(totalEntities) }) ]);
-  kpis.appendChild(c1); kpis.appendChild(c2);
+  const c1 = el("div", { class: "kpi" }, [
+    el("div", { class: "label", html: "Artículos (filtrados)" }),
+    el("div", { class: "value", html: String(totalPapers) })
+  ]);
+  const c2 = el("div", { class: "kpi" }, [
+    el("div", { class: "label", html: "Entidades (filtradas)" }),
+    el("div", { class: "value", html: String(totalEntities) })
+  ]);
+  kpis.appendChild(c1);
+  kpis.appendChild(c2);
+  if (state.viewMode === "images") {
+    const totalImages = state.imagesEntities.filter(e => e.label === "Imagen").length;
+    const c3 = el("div", { class: "kpi" }, [
+      el("div", { class: "label", html: "Imágenes (extraídas)" }),
+      el("div", { class: "value", html: String(totalImages) })
+    ]);
+    kpis.appendChild(c3);
+    return;
+  }
+  if (state.viewMode === "tables") {
+    const totalTables = state.tablesEntities.filter(e => e.label === "Tabla").length;
+    const c3 = el("div", { class: "kpi" }, [
+      el("div", { class: "label", html: "Tablas (extraídas)" }),
+      el("div", { class: "value", html: String(totalTables) })
+    ]);
+    kpis.appendChild(c3);
+    return;
+  }
+  const countsByLabel = state.filtered.reduce((acc, e) => {
+    acc[e.label] = (acc[e.label] || 0) + 1;
+    return acc;
+  }, {});
   Object.entries(countsByLabel).forEach(([label, count]) => {
-    const card = el("div", { class: "kpi" }, [ el("div", { class: "label", html: label }), el("div", { class: "value", html: String(count) }) ]);
+    const card = el("div", { class: "kpi" }, [
+      el("div", { class: "label", html: label }),
+      el("div", { class: "value", html: String(count) })
+    ]);
     kpis.appendChild(card);
   });
 }
-
-/* Renderizador central */
 function renderTable() {
   const thead = $("#tableHead"); thead.innerHTML = "";
   const tbody = $("#entitiesTbody"); tbody.innerHTML = "";
-  // Marca la tabla con la vista actual para ajustar estilos (ancho de columnas, etc.)
   const table = document.querySelector(".table-scroller table") || document.querySelector("table");
   if (table) table.dataset.view = state.viewMode;
   if (state.viewMode === 'pivot')  return renderPivotTable();
@@ -869,19 +743,13 @@ function renderTable() {
   if (state.viewMode === 'images')   return renderImagesTable();
   if (state.viewMode === 'tables') return renderTablesTable();
 }
-
-// --- Vista detallada eliminada (solo se usan vista matriz y por celda) ---
-
-/* Vista por celda (pivot clásica) */
 function renderPivotTable() {
   const thead = $("#tableHead"); const tbody = $("#entitiesTbody");
   tbody.innerHTML = "";
-
   const showCeldas = state.filters.groups.has('celdas');
-  const labels = showCeldas ? getPivotLabels() : []; // Si no celdas, no métricas
+  const labels = showCeldas ? getPivotLabels() : [];
   const headCells = ['DOI', 'Celda'].concat(labels);
   thead.innerHTML = "<tr>" + headCells.map(h => `<th>${h}</th>`).join("") + "</tr>";
-
   const groups = new Map();
   const pivotRows = getPivotRows();
   for (const e of pivotRows) {
@@ -893,12 +761,10 @@ function renderPivotTable() {
     const cur = slot.byLabel[e.label];
     if (!cur || (e.confidence ?? 0) > (cur.confidence ?? 0)) slot.byLabel[e.label] = e;
   }
-
   const rows = Array.from(groups.values());
   const start = (state.page - 1) * state.pageSize;
   const end = start + state.pageSize;
   const pageRows = rows.slice(start, end);
-
   pageRows.forEach(row => {
     const doi = row.paper?.doi || row.paper?.paper_id || "";
     const doiUrl = row.paper?.url || "#";
@@ -909,14 +775,12 @@ function renderPivotTable() {
     for (const lab of labels) {
       const ent = row.byLabel[lab];
       if (!ent) { cells.push("<td>—</td>"); continue; }
-
       const text = `${ent.value ?? ""}${ent.units ? " " + ent.units : ""}`;
       cells.push(`<td class="pivot-value"><button data-entity="${ent.entity_id}">${escapeHtml(String(text))}</button></td>`);
     }
     tr.innerHTML = cells.join("");
     tbody.appendChild(tr);
   });
-
   tbody.querySelectorAll(".pivot-value button").forEach(btn => {
     btn.addEventListener("click", (ev) => {
       const id = ev.currentTarget.getAttribute("data-entity");
@@ -925,75 +789,87 @@ function renderPivotTable() {
     });
   });
 }
-
-/* Vista matriz (como en tu imagen) */
-function renderMatrixTable(){
+function renderMatrixTable() {
+  const showCapas   = state.filters.groups.has('capas');
+  const showMetodos = state.filters.groups.has('metodos');
+  const showCeldas  = state.filters.groups.has('celdas');
   const thead = $("#tableHead"), tbody = $("#entitiesTbody");
   tbody.innerHTML = "";
   const hasEff = state.filtered.some(e => e.label === "Eficiencia");
-
+  let headTop = `<th rowspan="2">DOI</th>`;
+  let headSub = ``;
+  if (showCapas) {
+    headTop += `<th colspan="5">Capas</th>`;
+    headSub += `
+      <th>Substrato/TCO</th>
+      <th>ETL</th>
+      <th>Perovskita</th>
+      <th>HTL</th>
+      <th>Electrode</th>
+    `;
+  }
+  if (showMetodos) {
+    headTop += `<th colspan="2">Métodos</th>`;
+    headSub += `
+      <th>Síntesis</th>
+      <th>Fabricación</th>
+    `;
+  }
+  if (showCeldas) {
+    headTop += `<th colspan="${hasEff ? 5 : 4}">Celda</th>`;
+    headSub += `
+      <th>PCE</th>
+      <th>Jsc</th>
+      <th>Voc</th>
+      <th>FF</th>
+      ${hasEff ? "<th>Eficiencia</th>" : ""}
+    `;
+  }
   thead.innerHTML = `
-    <tr class="head-top">
-      <th rowspan="2">DOI</th>
-      <th colspan="5">Capas</th>
-      <th colspan="2">Métodos</th>
-      <th colspan="${hasEff ? 5 : 4}">Celda</th>
-    </tr>
-    <tr class="head-sub">
-      <th>Substrato/TCO</th><th>ETL</th><th>Perovskita</th><th>HTL</th><th>Electrode</th>
-      <th>Síntesis</th><th>Fabricación</th>
-      <th>PCE</th><th>Jsc</th><th>Voc</th><th>FF</th>${hasEff ? "<th>Eficiencia</th>" : ""}
-    </tr>`;
-
+    <tr class="head-top">${headTop}</tr>
+    <tr class="head-sub">${headSub}</tr>
+  `;
   const groups = buildMatrixGroups(state.filtered);
   const papers = Array.from(groups.values());
   const start = (state.page - 1) * state.pageSize;
-  const end   = start + state.pageSize;
+  const end = start + state.pageSize;
   const pageGroups = papers.slice(start, end);
-
   pageGroups.forEach(g => {
     const tr = document.createElement("tr");
-
-    // DOI
     const doiTd = document.createElement("td");
     const p = g.paper || {};
     const doi = p.doi || g.paper_id || "";
     const url = p.url || "#";
     doiTd.innerHTML = `<a href="${url}" target="_blank" rel="noopener">${escapeHtml(doi)}</a>`;
     tr.appendChild(doiTd);
-
-    // Capas y Métodos (sin cambios)
-    appendChipsCell(tr, g.capasItems?.["Substrato/TCO"] || [], 1);
-    appendChipsCell(tr, g.capasItems?.["ETL"] || [], 1);
-    appendChipsCell(tr, g.capasItems?.["Perovskita"] || [], 1);
-    appendChipsCell(tr, g.capasItems?.["HTL"] || [], 1);
-    appendChipsCell(tr, g.capasItems?.["Electrode"] || [], 1);
-    appendChipsCell(tr, g.metodosItems?.["Síntesis"] || [], 1);
-    appendChipsCell(tr, g.metodosItems?.["Fabricación"] || [], 1);
-
-    // === Métricas: ahora mostramos TODOS los valores (cells + samples + metrics_global) ===
-    const metrics = ["PCE", "Jsc", "Voc", "FF"];
-    if (hasEff) metrics.push("Eficiencia");
-
-    metrics.forEach(lab => {
-      const td = document.createElement("td");
-      td.className = "pivot-value chips-cell";
-
-      const ents = g.metricsByLabel.get(lab) || [];
-      if (ents.length === 0) {
-        td.innerHTML = "—";
-      } else {
-        td.innerHTML = ents.map(ent => 
-          `<button class="chip" data-entity="${ent.entity_id}">${escapeHtml(ent.value + (ent.units ? " " + ent.units : ""))}</button>`
-        ).join("");
-      }
-      tr.appendChild(td);
-    });
-
+    if (showCapas) {
+      appendChipsCell(tr, g.capasItems?.["Substrato/TCO"] || [], 1);
+      appendChipsCell(tr, g.capasItems?.["ETL"] || [], 1);
+      appendChipsCell(tr, g.capasItems?.["Perovskita"] || [], 1);
+      appendChipsCell(tr, g.capasItems?.["HTL"] || [], 1);
+      appendChipsCell(tr, g.capasItems?.["Electrode"] || [], 1);
+    }
+    if (showMetodos) {
+      appendChipsCell(tr, g.metodosItems?.["Síntesis"] || [], 1);
+      appendChipsCell(tr, g.metodosItems?.["Fabricación"] || [], 1);
+    }
+    if (showCeldas) {
+      const metrics = ["PCE", "Jsc", "Voc", "FF"];
+      if (hasEff) metrics.push("Eficiencia");
+      metrics.forEach(lab => {
+        const td = document.createElement("td");
+        td.className = "pivot-value chips-cell";
+        const ents = g.metricsByLabel.get(lab) || [];
+        td.innerHTML = ents.length
+          ? ents.map(ent =>
+              `<button class="chip" data-entity="${ent.entity_id}">${escapeHtml(ent.value + (ent.units ? " " + ent.units : ""))}</button>`
+            ).join("")
+          : "—";
+        tr.appendChild(td);
+      });
+    }
     tbody.appendChild(tr);
   });
-
-  // Event listeners (mantener el resaltado y apertura de evidencia)
   tbody.querySelectorAll(".pivot-value button").forEach(btn => {
     btn.addEventListener("click", ev => {
       document.querySelectorAll('.chip.active').forEach(b => b.classList.remove('active'));
@@ -1026,7 +902,7 @@ function renderImagesTable() {
   const paginated = sortedGroups.slice(start, end);
   paginated.forEach(g => {
     g.images.forEach((img, i) => {
-      const pid = img.paper_id; // Añadido para fallback en DOI
+      const pid = img.paper_id; 
       const tr = el("tr", {}, [
         el("td", { html: i === 0 ? `<a href="${ensureUrl((g.paper.doi || g.paper.paper_id || pid).replace(/_/g, '/'))}" target="_blank" rel="noopener">${escapeHtml((g.paper.doi || g.paper.paper_id || pid).replace(/_/g, '/'))}</a>` : "" }),
         el("td", { class: "pivot-value chips-cell", html: `<button class="chip" data-entity="${img.entity_id}">${escapeHtml(img.value)}</button>` })
@@ -1044,7 +920,7 @@ function renderImagesTable() {
   });
 }
 function renderTablesTable() {
-  console.log('Rendering tables table with state.tablesEntities:', state.tablesEntities); // Depurar entities cargadas
+  console.log('Rendering tables table with state.tablesEntities:', state.tablesEntities);
   const thead = $("#tableHead"); thead.innerHTML = "";
   const tbody = $("#entitiesTbody"); tbody.innerHTML = "";
   const table = thead.closest("table");
@@ -1061,15 +937,15 @@ function renderTablesTable() {
     if (!groups.has(pid)) groups.set(pid, { paper: state.papersById.get(pid) || {}, tables: [] });
     groups.get(pid).tables.push(e);
   });
-  console.log('Groups built:', groups); // Depurar grupos
+  console.log('Groups built:', groups);
   const sortedGroups = Array.from(groups.values()).sort((a, b) => (a.paper.doi || a.paper.paper_id || '').localeCompare(b.paper.doi || b.paper.paper_id || ''));
   const start = (state.page - 1) * state.pageSize;
   const end = start + state.pageSize;
   const paginated = sortedGroups.slice(start, end);
-  console.log('Paginated groups:', paginated); // Depurar paginados
+  console.log('Paginated groups:', paginated);
   paginated.forEach(g => {
     g.tables.forEach((tbl, i) => {
-      const pid = tbl.paper_id; // Fallback
+      const pid = tbl.paper_id;
       const tr = el("tr", {}, [
         el("td", { html: i === 0 ? `<a href="${ensureUrl((g.paper.doi || g.paper.paper_id || pid).replace(/_/g, '/'))}" target="_blank" rel="noopener">${escapeHtml((g.paper.doi || g.paper.paper_id || pid).replace(/_/g, '/'))}</a>` : "" }),
         el("td", { class: "pivot-value chips-cell", html: `<button class="chip" data-entity="${tbl.entity_id}">${escapeHtml(tbl.value)}</button>` })
@@ -1087,7 +963,7 @@ function renderTablesTable() {
   });
 }
 function buildMatrixGroups(rows){
-  const groups = new Map(); // paper_id -> group
+  const groups = new Map();
 
   for (const e of rows){
     const pid = e.paper_id;
@@ -1100,14 +976,12 @@ function buildMatrixGroups(rows){
         metodos: { "Síntesis": new Set(), "Fabricación": new Set() },
         capasItems: { "Substrato/TCO": [], "ETL": [], "Perovskita": [], "HTL": [], "Electrode": [] },
         metodosItems: { "Síntesis": [], "Fabricación": [] },
-        cells: new Map(),                    // cid -> { PCE: [...], Jsc: [...], ... }
-        metricsByLabel: new Map()            // label -> array de entidades (nuevo)
+        cells: new Map(),
+        metricsByLabel: new Map()
       });
     }
     const g = groups.get(pid);
     const lab = String(e.label || "").trim();
-
-    // === Capas y Métodos (sin cambios) ===
     if (["Substrato/TCO","ETL","Perovskita","HTL","Electrode"].includes(lab)){
       const vals = parseList(e.value);
       if (!vals.length && !_is_empty(e.value)) vals.push(String(e.value).trim());
@@ -1126,16 +1000,10 @@ function buildMatrixGroups(rows){
       });
       continue;
     }
-
-    // === Métricas (PCE, Jsc, Voc, FF, Eficiencia) ===
     if (RANGE_METRICS.some(m => m.key === lab)){
       const cid = getEntityCellId(e);
-
-      // Guardamos todas las entidades (cells, samples, metrics_global) en un array por label
       if (!g.metricsByLabel.has(lab)) g.metricsByLabel.set(lab, []);
       g.metricsByLabel.get(lab).push(e);
-
-      // También mantenemos el Map cells (para compatibilidad con otros sitios si hace falta)
       if (!g.cells.has(cid)) g.cells.set(cid, {});
       const slot = g.cells.get(cid);
       if (!slot[lab]) slot[lab] = [];
@@ -1144,8 +1012,6 @@ function buildMatrixGroups(rows){
   }
   return groups;
 }
-
-/* Paginación */
 function renderPagination() {
   const pag = $("#pagination");
   let total;
@@ -1154,9 +1020,7 @@ function renderPagination() {
   if (state.viewMode === 'images') total = countImagesGroups();
   if (state.viewMode === 'tables') total = countTablesGroups();
   const pages = Math.max(1, Math.ceil(total / state.pageSize));
-  
   state.page = Math.min(state.page, pages);
-
   function btn(txt, onClick, disabled=false) { const b = el("button", { html: txt }); b.disabled = disabled; b.addEventListener("click", onClick); return b; }
   pag.innerHTML = "";
   pag.appendChild(btn("« Primero", () => { state.page = 1; renderTable(); renderPagination(); }, state.page === 1));
@@ -1187,7 +1051,6 @@ function countTablesGroups() {
   }
   return seen.size || 0;
 }
-/* Evidencia */
 function showEvidence(entity) {
   const p = state.papersById.get(entity.paper_id) || {};
   const box = $("#evidenceContent");
@@ -1200,8 +1063,6 @@ function showEvidence(entity) {
   <div>${safeText}</div>`;
   $("#evidencePanel").hidden = false;
 }
-
-/* Exportaciones */
 function exportCSV() {
   if (state.viewMode === 'pivot') return exportPivotCSV();
   const rows = state.filtered.map(e => {
@@ -1221,10 +1082,7 @@ function exportCSV() {
   const csv = [headers.join(",")].concat(rows.map(r => headers.map(h => csvEscape(r[h])).join(","))).join("\n");
   downloadFile("entities_detalle.csv", new Blob([csv], { type: "text/csv;charset=utf-8" }));
 }
-
-
 function exportJSON() {
-  // Exporta lo que esté filtrado (independiente de la vista)
   const rows = state.filtered.map(e => {
     const p = state.papersById.get(e.paper_id) || {};
     return {
@@ -1241,20 +1099,17 @@ function exportJSON() {
       confidence: e.confidence ?? null
     };
   });
-
   const payload = {
     exported_at: new Date().toISOString(),
     viewMode: state.viewMode,
     total: rows.length,
     entities: rows
   };
-
   downloadFile(
     "entities_filtradas.json",
     new Blob([JSON.stringify(payload, null, 2)], { type: "application/json;charset=utf-8" })
   );
 }
-
 function exportPivotCSV() {
   const labels = getPivotLabels();
   const groups = new Map();
@@ -1280,20 +1135,14 @@ function exportPivotCSV() {
   const csv = [headers.join(",")].concat(outRows.map(r => headers.map(h => csvEscape(r[h])).join(","))).join("\n");
   downloadFile("entities_pivot.csv", new Blob([csv], { type: "text/csv;charset=utf-8" }));
 }
-
-// =============================
-// Helpers de vista por celda
-// - Excluye Capas y Métodos (por sección y por etiquetas conocidas)
-// =============================
 const PIVOT_EXCLUDED_LABELS = new Set([
   "Substrato/TCO", "ETL", "Perovskita", "HTL", "Electrode",
   "Síntesis", "Fabricación", "Capas", "Tabla"
 ]);
-// Añade exclusión dinámica basada en grupos no seleccionados
 function getDynamicPivotExcluded() {
   const excluded = new Set(PIVOT_EXCLUDED_LABELS);
   if (!state.filters.groups.has('capas')) {
-    excluded.add('Capas'); // Ya está, pero por si acaso
+    excluded.add('Capas');
   }
   if (!state.filters.groups.has('metodos')) {
     excluded.add('Síntesis');
@@ -1308,14 +1157,11 @@ function getDynamicPivotExcluded() {
   }
   return excluded;
 }
-
 function _isMethodsSection(e) {
   const s = String(e?.section ?? "").trim().toLowerCase();
   return s === "methods" || s === "method";
 }
-
 function getPivotRows() {
-  // Filtramos entidades para que en la vista por celda solo queden resultados/métricas.
   return state.filtered.filter(e => {
     const label = String(e.label ?? "").trim();
     const dynamicExcluded = getDynamicPivotExcluded();
@@ -1325,18 +1171,15 @@ function getPivotRows() {
     return true;
   });
 }
-
 function getPivotLabels() {
   const rows = getPivotRows();
   const set = new Set(rows.map(e => e.label).filter(Boolean));
-  const order = ["PCE", "Jsc", "Voc", "FF", "Eficiencia"]; // orden preferido
+  const order = ["PCE", "Jsc", "Voc", "FF", "Eficiencia"];
   return Array.from(set).sort((a, b) => {
     const ia = order.indexOf(a), ib = order.indexOf(b);
     return (ia < 0 ? 999 : ia) - (ib < 0 ? 999 : ib) || String(a).localeCompare(String(b));
   });
 }
-
-/* Utilidades comunes */
 function parseLayers(value){
   if (Array.isArray(value)) return value.slice(0,5);
   if (value && typeof value === 'object' && Array.isArray(value.layers)) return value.layers.slice(0,5);
@@ -1353,20 +1196,17 @@ function downloadFile(filename, blob) {
 function handleEntitiesFile(ev) {
   const f = ev.target.files[0];
   if (!f) return;
-
   const r = new FileReader();
   r.onload = () => {
     try {
       const raw = JSON.parse(r.result);
       const normalized = normalizeEntitiesInput(raw);
-
       if (normalized.mode === "fair") {
         setPapers(normalized.papersJson);
         setEntities(normalized.entitiesJson);
       } else {
         setEntities(raw);
       }
-
       postLoadSetup();
       applyFilters();
     } catch (err) {
@@ -1385,13 +1225,11 @@ function postLoadSetup() {
   computeRangeMetaAndInit();
   renderRangeFilters();
   applyFilters();
+  updateViewDependentControls();
 }
 window.addEventListener("DOMContentLoaded", init);
-
 function escapeHtml(s) { return String(s).replace(/[&<>"']/g, ch => ({"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;","'":"&#39;"}[ch])); }
 function getEntityCellId(e) { if (e.cell_id != null) return e.cell_id; if (e.device != null) return e.device; if (e.sample != null) return e.sample; return 1; }
-
-/* Render Capas (cilindro) para la vista por celda */
 function renderLayerStackHTML(value) {
   let layers = [];
   if (Array.isArray(value)) layers = value.slice();
@@ -1404,13 +1242,10 @@ function renderLayerStackHTML(value) {
   ).join("");
   return `<div class="layer-cylinder"><div class="layer-body">${slices}</div></div>`;
 }
-
-/* Helpers vista matriz */
 function pushChip(arr, text, entity_id){
   if (!arr) return;
   const t = String(text ?? "").trim();
   if (!t) return;
-  // evita duplicados exactos (texto + entidad)
   if (arr.some(x => x.text === t && x.entity_id === entity_id)) return;
   arr.push({ text: t, entity_id });
 }
@@ -1495,7 +1330,7 @@ async function scanLocalImagesFolder() {
     }
     alert(`Imágenes cargadas en vista independiente: ${added}.`);
     applyFilters();
-    console.log('ImagesEntities después de carga:', state.imagesEntities); // Añadido para depurar
+    console.log('ImagesEntities después de carga:', state.imagesEntities);
     if (state.viewMode === 'images') {
       renderTable();
       renderPagination();
@@ -1546,7 +1381,7 @@ async function scanLocalTablesFolder() {
     }
     alert(`Tablas cargadas en vista independiente: ${added}.`);
     applyFilters();
-    console.log('TablesEntities después de carga:', state.tablesEntities); // Añadido para depurar
+    console.log('TablesEntities después de carga:', state.tablesEntities);
     if (state.viewMode === 'tables') {
       renderTable();
       renderPagination();
