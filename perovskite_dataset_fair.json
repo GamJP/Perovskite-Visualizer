@@ -1,0 +1,2226 @@
+[
+  {
+    "id": "09b84d98-9245-4457-98e0-75116becba2f",
+    "title": "High-Performance Perovskite-Polymer Hybrid Solar Cells via",
+    "Authors": "Agnese Abrusci, Samuel D. Stranks, Pablo Docampo, Hin-Lap Yip, Alex K.-Y. Jen, and Henry J. Snaith",
+    "doi": "10.1021/nl401044q",
+    "Subject": "Nano Lett. 2013.13:3124-3128",
+    "Keywords": "Perovskite,fullerene,hybrid photovoltaics,self-assembled monolayer,photoinduced absorption,photoluminescence",
+    "capas": {
+      "Perovskite": [
+        "H3NH3PbI3 - xClx",
+        "CH3NH3PbI3 - xClx"
+      ],
+      "HTL": [
+        "P3HT",
+        "Spiro-OMeTAD"
+      ],
+      "ETL": [
+        "TiO₂",
+        "ZnO",
+        "PCBM/C₆₀",
+        "SnO₂"
+      ],
+      "Substrate/TCO": [
+        "ITO",
+        "FTO"
+      ],
+      "Electrode": [
+        "Not specified"
+      ]
+    },
+    "metodos": {
+      "fabrication_technique": [
+        "Solution-Processed"
+      ]
+    },
+    "metrics_global": {
+      "PCE": [
+        "3.8 %",
+        "6.7 %",
+        "10.2 %",
+        "11.7 %"
+      ],
+      "Voc": [
+        "0 V",
+        "0.8 V",
+        "0.84 V"
+      ],
+      "Jsc": [
+        "14 mA/cm²",
+        "19.6 mA/cm²"
+      ],
+      "FF": [],
+      "format_document": "PDF",
+      "annotation_schema": "BIO",
+      "samples": []
+    },
+    "extraction_date": "2026-04-05T17:56:31.051113",
+    "model_used": "BERT-NER-Perovskite (fine-tuned)",
+    "license": "CC-BY 4.0",
+    "fair_notes": "FAIR-compliant JSON dataset"
+  },
+  {
+    "id": "263e1782-7f70-4b5c-8eab-4b3c5f8a66ff",
+    "title": "Low-temperature processed meso-superstructured to",
+    "Authors": "thin-ﬁlm perovskite solar cells James M. Ball, Michael M. Lee, Andrew Hey, Henry J. Snaith We have reduced the processing temperature of the bulk absorber",
+    "doi": "10.1039/c3ee40810h",
+    "Subject": null,
+    "Keywords": null,
+    "capas": {
+      "Perovskite": [
+        "CH3NH3PbI3"
+      ],
+      "HTL": [
+        "Spiro-OMeTAD"
+      ],
+      "ETL": [
+        "TiO₂",
+        "SnO₂"
+      ],
+      "Substrate/TCO": [
+        "ITO",
+        "FTO"
+      ],
+      "Electrode": [
+        "Not specified"
+      ]
+    },
+    "metodos": {
+      "synthesis_method": [
+        "Co-Evaporation"
+      ],
+      "fabrication_technique": [
+        "Spin Coating (One-Step and Two-Step)",
+        "Solution-Processed",
+        "Low-Temperature Processing"
+      ]
+    },
+    "metrics_global": {
+      "PCE": [
+        "9 %",
+        "12 %",
+        "12.3 %",
+        "100 %"
+      ],
+      "Voc": [
+        "1.1 V",
+        "7 V",
+        "13 V"
+      ],
+      "Jsc": [
+        "0.9 mA/cm²",
+        "1.9 mA/cm²",
+        "28 mA/cm²"
+      ],
+      "FF": [
+        "12.3 %"
+      ],
+      "format_document": "PDF",
+      "annotation_schema": "BIO",
+      "samples": []
+    },
+    "extraction_date": "2026-04-05T17:59:56.265900",
+    "model_used": "BERT-NER-Perovskite (fine-tuned)",
+    "license": "CC-BY 4.0",
+    "fair_notes": "FAIR-compliant JSON dataset"
+  },
+  {
+    "id": "d628902f-7174-4b69-9df0-8fbfaf63d056",
+    "title": "Eﬀect of Diﬀerent Hole Transport Materials on Recombination in CH3NH3PbI3 Perovskite-Sensitized Mesoscopic Solar Cells",
+    "Authors": "Dongqin Bi, Lei Yang, Gerrit Boschloo, Anders Hagfeldt, and Erik M. J. Johansson",
+    "doi": "10.1021/jz400638x",
+    "Subject": "J. Phys. Chem. Lett. 2013.4:1532-1536",
+    "Keywords": "solid-state solar cell,(CH3NH3)PbI3,perovskite,HTM,spiro-OMeTAD,P3HT,TiO2",
+    "capas": {
+      "Perovskite": [
+        "CH3NH3PbI3",
+        "( CH3NH3 ) PbI3",
+        "##3",
+        "CH3NH3PbI2Cl",
+        "CH3NH3 ) PbI3"
+      ],
+      "HTL": [
+        "P3HT",
+        "Spiro-OMeTAD"
+      ],
+      "ETL": [
+        "TiO₂",
+        "PCBM/C₆₀",
+        "CdS"
+      ],
+      "Substrate/TCO": [
+        "Flexible (PET/PEN/PI)",
+        "ITO"
+      ]
+    },
+    "metodos": {
+      "synthesis_method": [
+        "General Synthesis"
+      ],
+      "fabrication_technique": [
+        "Solution-Processed"
+      ]
+    },
+    "metrics_global": {
+      "PCE": [
+        "6.5 %",
+        "7.2 %",
+        "8 %",
+        "8.5 %",
+        "9 %",
+        "10 %"
+      ],
+      "Voc": [
+        "0.12 V",
+        "0.15 V",
+        "0.059 V",
+        "0.114 V",
+        "0.154 V"
+      ],
+      "Jsc": [
+        "18 mA/cm²"
+      ],
+      "FF": [
+        "6.5 %",
+        "9 %"
+      ],
+      "format_document": "PDF",
+      "annotation_schema": "BIO",
+      "samples": []
+    },
+    "extraction_date": "2026-04-05T18:03:48.895399",
+    "model_used": "BERT-NER-Perovskite (fine-tuned)",
+    "license": "CC-BY 4.0",
+    "fair_notes": "FAIR-compliant JSON dataset"
+  },
+  {
+    "id": "d1e57b1a-8748-48c9-9116-2c798d94136e",
+    "title": "Eﬃcient and stable CH3NH3PbI3-sensitized ZnO nanorod",
+    "Authors": "array solid-state solar cells Dongqin Bi, a Gerrit Boschloo, a Stefan Schwarzm¨uller, b Lei Yang, a Erik M. J. Johanssona, Anders Hagfeldt a",
+    "doi": "10.1039/c3nr01542d",
+    "Subject": "",
+    "Keywords": "",
+    "capas": {
+      "Perovskite": [
+        "CH3NH3PbI3",
+        "CH3NH3PbI2Cl",
+        "##3",
+        "NH3PbI3"
+      ],
+      "ETL": [
+        "TiO₂",
+        "ZnO",
+        "CdS",
+        "SnO₂"
+      ],
+      "HTL": [
+        "P3HT",
+        "Spiro-OMeTAD",
+        "CuSCN"
+      ],
+      "Substrate/TCO": [
+        "Flexible (PET/PEN/PI)",
+        "FTO"
+      ],
+      "Electrode": [
+        "Not specified"
+      ]
+    },
+    "metodos": {
+      "synthesis_method": [
+        "Hydrothermal Synthesis",
+        "Co-Evaporation"
+      ],
+      "fabrication_technique": [
+        "Spin Coating (One-Step and Two-Step)",
+        "Physical Vapor Deposition (PVD) / Thermal Evaporation"
+      ]
+    },
+    "metrics_global": {
+      "PCE": [
+        "1 %",
+        "1.5 %",
+        "1.7 %",
+        "5 %",
+        "5.2 %",
+        "12.3 %",
+        "40 %",
+        "60 %"
+      ],
+      "Voc": [
+        "0.75 V",
+        "46 V",
+        "0.059 V",
+        "0.118 V",
+        "0.170 V",
+        "0.200 V"
+      ],
+      "Jsc": [
+        "4 mA/cm²",
+        "12 mA/cm²",
+        "12.7 mA/cm²",
+        "26 mA/cm²"
+      ],
+      "FF": [
+        "5 %"
+      ],
+      "format_document": "PDF",
+      "annotation_schema": "BIO",
+      "samples": [
+        "Sample 1: [PCE: 10%, Jsc: 12. 7 mA, FF: 0. 58., Voc: 0. 68 V]",
+        "Sample 2: [PCE: #, Jsc: 2. 0 mA, FF: 0, Voc: 0.59 V]"
+      ]
+    },
+    "extraction_date": "2026-04-05T18:06:21.739188",
+    "model_used": "BERT-NER-Perovskite (fine-tuned)",
+    "license": "CC-BY 4.0",
+    "fair_notes": "FAIR-compliant JSON dataset"
+  },
+  {
+    "id": "2b2a4f58-b8b5-4883-9016-04f772acd305",
+    "title": "High performance hybrid solar cells sensitized by",
+    "Authors": "organolead halide perovskites Bing Cai, ab Yedi Xing, a Zhou Yang, a Wen-Hua Zhang a",
+    "doi": "10.1039/c3ee40343b",
+    "Subject": "",
+    "Keywords": "",
+    "capas": {
+      "Perovskite": [
+        "CH3NH3PbI3",
+        "CH3NH3PbBr",
+        "CH3NH3PbI2Cl",
+        "CH3NH3PbBr3",
+        "CH3NH3PbX3"
+      ],
+      "HTL": [
+        "P3HT",
+        "Spiro-OMeTAD",
+        "NiOₓ"
+      ],
+      "ETL": [
+        "TiO₂"
+      ],
+      "Substrate/TCO": [
+        "Flexible (PET/PEN/PI)",
+        "FTO"
+      ],
+      "Electrode": [
+        "Carbon"
+      ]
+    },
+    "metodos": {
+      "synthesis_method": [
+        "General Synthesis"
+      ],
+      "fabrication_technique": [
+        "Spin Coating (One-Step and Two-Step)",
+        "Solution-Processed"
+      ]
+    },
+    "metrics_global": {
+      "PCE": [
+        "1 %",
+        "3 %",
+        "5 %",
+        "5.5 %",
+        "5.55 %",
+        "6 %",
+        "6.48 %",
+        "7 %",
+        "9.7 %",
+        "10 %",
+        "11 %",
+        "32 %",
+        "40 %",
+        "97 %",
+        "98 %",
+        "99 %",
+        "99.5 %"
+      ],
+      "Voc": [
+        "0 V",
+        "0.66 V",
+        "1 V",
+        "1.12 V",
+        "1.15 V",
+        "2 V",
+        "45 V"
+      ],
+      "Jsc": [
+        "11 mA/cm²",
+        "13 mA/cm²"
+      ],
+      "FF": [
+        "0",
+        "5.55 %",
+        "11 %"
+      ],
+      "format_document": "PDF",
+      "annotation_schema": "BIO",
+      "samples": [
+        "Sample 1: [PCE: 3.04%, Jsc: 4. 46 mA, FF: 0. 59, Voc: 1.16 V]",
+        "Sample 2: [PCE: 48%, Jsc: 13. 86 mA, FF: 48%, Voc: 0. 83 V]"
+      ]
+    },
+    "extraction_date": "2026-04-05T18:10:26.497418",
+    "model_used": "BERT-NER-Perovskite (fine-tuned)",
+    "license": "CC-BY 4.0",
+    "fair_notes": "FAIR-compliant JSON dataset"
+  },
+  {
+    "id": "81551f57-3ab2-47a6-b259-09e9461a95ef",
+    "title": "heterojunction solar cells with consecutive charge",
+    "Authors": "transport tunnels in hole transport material Haiwei Chen, Xu Pan, Weiqing Liu, Molang Cai, Dongxing Kou, Zhipeng Huo",
+    "doi": "10.1039/c3cc42297f",
+    "Subject": null,
+    "Keywords": null,
+    "capas": {
+      "Perovskite": [
+        "CH3NH3PbI3",
+        "CH3NH3PbI2Cl"
+      ],
+      "HTL": [
+        "P3HT",
+        "Spiro-OMeTAD"
+      ],
+      "ETL": [
+        "TiO₂",
+        "ZnO",
+        "CdS"
+      ],
+      "Substrate/TCO": [
+        "ITO"
+      ],
+      "Electrode": [
+        "Carbon"
+      ]
+    },
+    "metodos": {
+      "fabrication_technique": [
+        "Spin Coating (One-Step and Two-Step)",
+        "Solution-Processed"
+      ]
+    },
+    "metrics_global": {
+      "PCE": [
+        "1 %",
+        "4.12 %",
+        "6 %",
+        "6.45 %",
+        "6.54 %",
+        "7.6 %",
+        "9.7 %",
+        "10.9 %",
+        "26.7 %"
+      ],
+      "Voc": [
+        "11 V",
+        "19 V"
+      ],
+      "Jsc": [],
+      "FF": [
+        "0",
+        "6.45 %"
+      ],
+      "format_document": "PDF",
+      "annotation_schema": "BIO",
+      "samples": [
+        "Sample 1: [PCE: #, Jsc: 12.6 mA, FF: 0. 45, Voc: 0.73 V]"
+      ]
+    },
+    "extraction_date": "2026-04-05T18:11:10.677709",
+    "model_used": "BERT-NER-Perovskite (fine-tuned)",
+    "license": "CC-BY 4.0",
+    "fair_notes": "FAIR-compliant JSON dataset"
+  },
+  {
+    "id": "fd546690-1c59-4bd7-b19d-33adc9b41b0e",
+    "title": "MAPbI3-xClx Mixed Halide Perovskite for Hybrid Solar Cells: The Role of Chloride as Dopant on the Transport and Structural Properties",
+    "Authors": "Silvia Colella, Edoardo Mosconi, Paolo Fedeli, Andrea Listorti, Francesco Gazza, Fabio Orlandi, Patrizia Ferro, Tullo Besagni, Aurora Rizzo, Gianluca Calestani, Giuseppe Gigli, Filippo De Angelis, and Roberto Mosca",
+    "doi": "10.1021/cm402919x",
+    "Subject": "Chem. Mater. 2013.25:4613-4618",
+    "Keywords": "perovskites,hybrid solar cells,X-ray structures,DFT investigations",
+    "capas": {
+      "Perovskite": [
+        "CH3NH3PbI3",
+        "MAPbI3 ‑ xBrx",
+        "MAPbI3",
+        "MAPbI3 ‑ x",
+        "MAPbI2Cl",
+        "MAPbI₃",
+        "MAPbCl3",
+        "##lx",
+        "MAPbBr3 ‑ xClx"
+      ],
+      "ETL": [
+        "TiO₂",
+        "SnO₂"
+      ],
+      "HTL": [
+        "Spiro-OMeTAD",
+        "NiOₓ"
+      ],
+      "Substrate/TCO": [
+        "ITO",
+        "FTO"
+      ],
+      "Electrode": [
+        "Not specified"
+      ]
+    },
+    "metodos": {
+      "synthesis_method": [
+        "Co-Evaporation"
+      ],
+      "fabrication_technique": [
+        "Spin Coating (One-Step and Two-Step)",
+        "Solution-Processed",
+        "Physical Vapor Deposition (PVD) / Thermal Evaporation"
+      ]
+    },
+    "metrics_global": {
+      "PCE": [
+        "0 %",
+        "0.7 %",
+        "0.91 %",
+        "1 %",
+        "1.3 %",
+        "1.6 %",
+        "4 %",
+        "8 %",
+        "12.3 %",
+        "30 %",
+        "33 %",
+        "37 %",
+        "75 %"
+      ],
+      "Voc": [],
+      "Jsc": [
+        "1 mA/cm²",
+        "2 mA/cm²",
+        "16 mA/cm²",
+        "17 mA/cm²",
+        "32 mA/cm²"
+      ],
+      "FF": [
+        "0"
+      ],
+      "format_document": "PDF",
+      "annotation_schema": "BIO",
+      "samples": []
+    },
+    "extraction_date": "2026-04-05T18:12:10.756026",
+    "model_used": "BERT-NER-Perovskite (fine-tuned)",
+    "license": "CC-BY 4.0",
+    "fair_notes": "FAIR-compliant JSON dataset"
+  },
+  {
+    "id": "4355bb21-1942-4580-819d-39d0b67cadca",
+    "title": "High Open-Circuit Voltage Solar Cells Based on Organic−Inorganic",
+    "Authors": "Lead Bromide Perovskite Eran Edri, Saar Kirmayer, David Cahen, and Gary Hodes Department of Materials, Weizmann Institute of Science, Israel ABSTRACT: Mesoscopic solar cells, based on solution-processed organic −inorganic perovskite absorbers, in conjunction",
+    "doi": "10.1021/jz400348q",
+    "Subject": null,
+    "Keywords": null,
+    "capas": {
+      "Perovskite": [
+        "CH3NH3PbBr3",
+        "H3NH3PbBr3",
+        "CH3NH3PbI3",
+        "CH3NH3PbI2Cl"
+      ],
+      "HTL": [
+        "P3HT",
+        "Spiro-OMeTAD"
+      ],
+      "ETL": [
+        "TiO₂",
+        "PCBM/C₆₀",
+        "SnO₂"
+      ],
+      "Substrate/TCO": [
+        "Flexible (PET/PEN/PI)",
+        "ITO",
+        "FTO"
+      ],
+      "Electrode": [
+        "Not specified"
+      ]
+    },
+    "metodos": {
+      "synthesis_method": [
+        "Sol-Gel",
+        "Annealing"
+      ],
+      "fabrication_technique": [
+        "Spin Coating (One-Step and Two-Step)",
+        "Solution-Processed"
+      ]
+    },
+    "metrics_global": {
+      "PCE": [
+        "3 %",
+        "6.5 %",
+        "7.3 %",
+        "9 %",
+        "10.9 %",
+        "40 %",
+        "48 %",
+        "50 %"
+      ],
+      "Voc": [
+        "0 V",
+        "0.96 V",
+        "1 V",
+        "1.1 V",
+        "1.3 V",
+        "2 V",
+        "0.800 V",
+        "1.300 V"
+      ],
+      "Jsc": [
+        "0.8 mA/cm²",
+        "1 mA/cm²",
+        "1.5 mA/cm²",
+        "9 mA/cm²",
+        "40 mA/cm²"
+      ],
+      "FF": [
+        "9 %",
+        "40 %"
+      ],
+      "format_document": "PDF",
+      "annotation_schema": "BIO",
+      "samples": [
+        "Sample 1: [PCE: 6. 5 %, Jsc: 15.8 mA/, FF: 0. 59, Voc: 0.71 V]"
+      ]
+    },
+    "extraction_date": "2026-04-05T18:13:08.842622",
+    "model_used": "BERT-NER-Perovskite (fine-tuned)",
+    "license": "CC-BY 4.0",
+    "fair_notes": "FAIR-compliant JSON dataset"
+  },
+
+  {
+    "id": "46256f62-0228-4947-9660-5f02ffea0d40",
+    "title": "Efficient Inorganic–Organic Hybrid Perovskite Solar Cells Based on Pyrene Arylamine Derivatives as Hole-Transporting Materials",
+    "Authors": "Nam Joong Jeon, Jaemin Lee, Jun Hong Noh, Mohammad Khaja Nazeeruddin, Michael Grätzel, and Sang Il Seok",
+    "doi": "10.1021/ja410659k",
+    "Subject": "J. Am. Chem. Soc. 2013.135:19087-19090",
+    "Keywords": null,
+    "capas": {
+      "Perovskite": [
+        "CH3NH3PbI3",
+        "CH3NH3PbI3 - xClx",
+        "MAPbI3",
+        "MAPbI₃",
+        "##3",
+        "CH3NH3PbX3"
+      ],
+      "HTL": [
+        "PTAA",
+        "P3HT",
+        "Spiro-OMeTAD"
+      ],
+      "ETL": [
+        "TiO₂"
+      ],
+      "Substrate/TCO": [
+        "ITO"
+      ],
+      "Electrode": [
+        "Carbon"
+      ]
+    },
+    "metodos": {
+      "synthesis_method": [
+        "Wet Chemistry with Organic Solvents",
+        "General Synthesis",
+        "Co-Evaporation"
+      ],
+      "fabrication_technique": [
+        "Physical Vapor Deposition (PVD) / Thermal Evaporation"
+      ]
+    },
+    "metrics_global": {
+      "PCE": [
+        "8 %",
+        "12 %",
+        "12.4 %",
+        "15 %"
+      ],
+      "Voc": [
+        "0 V",
+        "1.07 V",
+        "3 V",
+        "0.004 V",
+        "0.040 V",
+        "0.100 V"
+      ],
+      "Jsc": [
+        "20.2 mA/cm²",
+        "21 mA/cm²",
+        "21.5 mA/cm²"
+      ],
+      "FF": [
+        "12.4 %"
+      ],
+      "format_document": "PDF",
+      "annotation_schema": "BIO",
+      "samples": [
+        "Sample 1: [PCE: 69.4%, Jsc: #, FF: 69. 4 %, Voc: 0.886 V]",
+        "Sample 2: [PCE: 56.5%, Jsc: 17. 7 mA, FF: 56.5%, Voc: 800 mV]"
+      ]
+    },
+    "extraction_date": "2026-04-05T18:20:00.577134",
+    "model_used": "BERT-NER-Perovskite (fine-tuned)",
+    "license": "CC-BY 4.0",
+    "fair_notes": "FAIR-compliant JSON dataset"
+  },
+  {
+    "id": "9f40d08b-20dc-448f-ac9d-721a9766c042",
+    "title": null,
+    "Authors": "Enhanced Performance in Perovskite Organic Lead Iodide Heterojunction Solar",
+    "doi": "10.1088/0256-307X/30/12/128402",
+    "Subject": null,
+    "Keywords": null,
+    "capas": {
+      "Perovskite": [
+        "CH3NH3PbI3",
+        "##NH3PbI3",
+        "##3PbI3",
+        "##3",
+        "##bI3"
+      ],
+      "HTL": [
+        "Spiro-OMeTAD"
+      ],
+      "ETL": [
+        "TiO₂"
+      ],
+      "Substrate/TCO": [
+        "FTO"
+      ],
+      "Electrode": [
+        "Not specified"
+      ]
+    },
+    "metodos": {
+      "synthesis_method": [
+        "Surface Passivation"
+      ],
+      "fabrication_technique": [
+        "Spin Coating (One-Step and Two-Step)",
+        "Atomic Layer Deposition (ALD)"
+      ]
+    },
+    "metrics_global": {
+      "PCE": [
+        "3.3 %",
+        "5.07 %",
+        "8 %",
+        "15 %"
+      ],
+      "Voc": [
+        "0.789 V"
+      ],
+      "Jsc": [
+        "10 mA/cm²"
+      ],
+      "FF": [
+        "5.07 %"
+      ],
+      "format_document": "PDF",
+      "annotation_schema": "BIO",
+      "samples": [
+        "Sample 1: [PCE: #, Jsc: 7.38 mA/cm, FF: 0. 64., Voc: 699.2 mV]"
+      ]
+    },
+    "extraction_date": "2026-04-05T18:26:57.754929",
+    "model_used": "BERT-NER-Perovskite (fine-tuned)",
+    "license": "CC-BY 4.0",
+    "fair_notes": "FAIR-compliant JSON dataset"
+  },
+  {
+    "id": "5aab6c8c-f7cf-45c9-900d-62138db6c42e",
+    "title": "High Eﬃciency Solid-State Sensitized Solar Cell-Based on Submicrometer Rutile TiO2 Nanorod and CH3NH3PbI3 Perovskite",
+    "Authors": "Hui-Seon Kim, Jin-Wook Lee, Natalia Yantara, Pablo P. Boix, Sneha A. Kulkarni, Subodh Mhaisalkar, Michael Grätzel, and Nam-Gyu Park",
+    "doi": "10.1021/nl400286w",
+    "Subject": "Nano Lett. 2013.13:2412-2417",
+    "Keywords": "Solid-state dye-sensitized solar cell,perovskite,CH3NH3PbI3,nanorod,rutile,impedance spectroscopy",
+    "capas": {
+      "ETL": [
+        "TiO₂"
+      ],
+      "Perovskite": [
+        "CH3NH3PbI3",
+        "CH3NH3PbI3 - xClx",
+        "##H3PbI3"
+      ],
+      "HTL": [
+        "Spiro-OMeTAD"
+      ],
+      "Substrate/TCO": [
+        "Flexible (PET/PEN/PI)",
+        "ITO",
+        "FTO"
+      ],
+      "Electrode": [
+        "Not specified"
+      ]
+    },
+    "metodos": {
+      "synthesis_method": [
+        "Hydrothermal Synthesis",
+        "Co-Evaporation"
+      ],
+      "fabrication_technique": [
+        "Spin Coating (One-Step and Two-Step)",
+        "Physical Vapor Deposition (PVD) / Thermal Evaporation"
+      ]
+    },
+    "metrics_global": {
+      "PCE": [
+        "2.9 %",
+        "6 %",
+        "7 %",
+        "8 %",
+        "9 %",
+        "9.4 %",
+        "11 %",
+        "12 %",
+        "19 %",
+        "20 %",
+        "28 %",
+        "37 %",
+        "40 %",
+        "71 %",
+        "96 %",
+        "99 %",
+        "99.8 %",
+        "99.95 %"
+      ],
+      "Voc": [
+        "0 V",
+        "0.1 V",
+        "0.020 V",
+        "1.000 V"
+      ],
+      "Jsc": [
+        "15 mA/cm²",
+        "27 mA/cm²"
+      ],
+      "FF": [
+        "0",
+        "9.4 %",
+        "19 %"
+      ],
+      "format_document": "PDF",
+      "annotation_schema": "BIO",
+      "samples": [
+        "Sample 1: [PCE: #, Jsc: 15.6 mA/cm, FF: 0. 63, Voc: 955 mV]",
+        "Sample 2: [PCE: 50%, Jsc: 15.6 mA/cm2, FF: 0. 63, Voc: 955 mV]"
+      ]
+    },
+    "extraction_date": "2026-04-05T18:28:34.589229",
+    "model_used": "BERT-NER-Perovskite (fine-tuned)",
+    "license": "CC-BY 4.0",
+    "fair_notes": "FAIR-compliant JSON dataset"
+  },
+  {
+    "id": "4e6a5c6e-b514-4190-b196-632c67a55d22",
+    "title": "Depleted hole conductor-free lead halide iodide",
+    "Authors": "heterojunction solar cells",
+    "doi": "10.1039/c3ee42282h",
+    "Subject": null,
+    "Keywords": null,
+    "capas": {
+      "ETL": [
+        "TiO₂",
+        "SnO₂"
+      ],
+      "Perovskite": [
+        "CH3NH3PbI3",
+        "H3NH3PbI3",
+        "CsSnI3",
+        "CH3NH3PBr3",
+        "NH3PbI3"
+      ],
+      "HTL": [
+        "PTAA",
+        "Spiro-OMeTAD",
+        "NiOₓ"
+      ],
+      "Substrate/TCO": [
+        "Flexible (PET/PEN/PI)",
+        "ITO"
+      ],
+      "Electrode": [
+        "Not specified"
+      ]
+    },
+    "metodos": {
+      "synthesis_method": [
+        "Two-Step Sequential Deposition",
+        "General Synthesis",
+        "Co-Evaporation",
+        "Annealing"
+      ],
+      "fabrication_technique": [
+        "Spin Coating (One-Step and Two-Step)",
+        "Physical Vapor Deposition (PVD) / Thermal Evaporation",
+        "Low-Temperature Processing"
+      ]
+    },
+    "metrics_global": {
+      "PCE": [
+        "5 %",
+        "7 %",
+        "7.15 %",
+        "8 %",
+        "8.5 %",
+        "9 %",
+        "10 %",
+        "12 %",
+        "15 %",
+        "40 %",
+        "50 %",
+        "80 %"
+      ],
+      "Voc": [
+        "0.67 V",
+        "0.8 V",
+        "1 V",
+        "2 V",
+        "0.010 V",
+        "19 V"
+      ],
+      "Jsc": [
+        "18 mA/cm²",
+        "40 mA/cm²"
+      ],
+      "FF": [
+        "8 %"
+      ],
+      "format_document": "PDF",
+      "annotation_schema": "BIO",
+      "samples": [
+        "Sample 1: [PCE: #, Jsc: 18.8 mA, FF: 0. 6, Voc: 0.712 V]"
+      ]
+    },
+    "extraction_date": "2026-04-05T18:30:22.266102",
+    "model_used": "BERT-NER-Perovskite (fine-tuned)",
+    "license": "CC-BY 4.0",
+    "fair_notes": "FAIR-compliant JSON dataset"
+  },
+
+  {
+    "id": "735e070d-75c6-4f5a-b8b1-7ff28951bf29",
+    "title": "Chemical Management for Colorful, Efficient, and Stable Inorganic–Organic Hybrid Nanostructured Solar Cells",
+    "Authors": "Jun Hong Noh, Sang Hyuk Im, Jin Hyuck Heo, Tarak N. Mandal, and Sang Il Seok",
+    "doi": "10.1021/nl400349b",
+    "Subject": "Nano Lett. 2013.13:1764-1769",
+    "Keywords": "Inorganic−organic hybrid,nanostructured,colorful,efficient and stable solar cells",
+    "capas": {
+      "Perovskite": [
+        "MAPb ( I 1 - xBrx",
+        "MAPb(I0.9Br0.1)₃",
+        "MAP",
+        "MAPbBr3. 8",
+        "##Br",
+        "MAPbX3",
+        "MAPb ( I 1 - xBrx ) 3",
+        "MAPb - ( I1 - xBrx ) 3",
+        "MAPbBr3",
+        "##B",
+        "MAPb - ( I1 - xB",
+        "MAPb (",
+        "##1 - xBrx",
+        "MAPb ( I",
+        "MAPb ( I1 - xBrx ) 3 ( x",
+        "CH3NH3PbX3",
+        ") 3",
+        "##1 -",
+        "MAPbI3 ( x",
+        "MAPbI3",
+        "MAPb ( I0. 9Br0. 1 ) 3",
+        "##Brx",
+        "CH3NH3 ( MA ) Pb ( I1 - xBrx ) 3"
+      ],
+      "HTL": [
+        "PTAA"
+      ],
+      "ETL": [
+        "TiO₂"
+      ],
+      "Substrate/TCO": [
+        "Flexible (PET/PEN/PI)",
+        "ITO",
+        "FTO"
+      ],
+      "Electrode": [
+        "Carbon"
+      ]
+    },
+    "metodos": {
+      "fabrication_technique": [
+        "Solution-Processed"
+      ]
+    },
+    "metrics_global": {
+      "PCE": [
+        "10 %",
+        "12 %",
+        "35 %",
+        "50 %",
+        "55 %",
+        "80 %"
+      ],
+      "Voc": [
+        "1 V"
+      ],
+      "Jsc": [
+        "3 mA/cm²",
+        "18 mA/cm²"
+      ],
+      "FF": [
+        "0",
+        "10 %",
+        "80 %"
+      ],
+      "format_document": "PDF",
+      "annotation_schema": "BIO",
+      "samples": []
+    },
+    "extraction_date": "2026-04-05T18:32:10.321945",
+    "model_used": "BERT-NER-Perovskite (fine-tuned)",
+    "license": "CC-BY 4.0",
+    "fair_notes": "FAIR-compliant JSON dataset"
+  },
+  {
+    "id": "46b19555-6f55-470f-82ec-e687841fccf3",
+    "title": "Nanostructured TiO2/CH3NH3PbI3 heterojunction solar cells employing spiro-OMeTAD/Co-complex as",
+    "Authors": "hole-transporting material Jun Hong Noh, a Nam Joong Jeon, a Yong Chan Choi, a Md. K. Nazeeruddin",
+    "doi": "10.1039/c3ta12681a",
+    "Subject": null,
+    "Keywords": null,
+    "capas": {
+      "ETL": [
+        "TiO₂",
+        "SnO₂"
+      ],
+      "Perovskite": [
+        "CH3NH3PbI3",
+        "CsSnI3",
+        "CH3NH3PbI2Cl",
+        "CH3NH3PbX3"
+      ],
+      "HTL": [
+        "P3HT",
+        "CuSCN",
+        "Spiro-OMeTAD",
+        "PEDOT:PSS",
+        "CuOₓ"
+      ],
+      "Substrate/TCO": [
+        "Flexible (PET/PEN/PI)",
+        "FTO"
+      ],
+      "Electrode": [
+        "Not specified"
+      ]
+    },
+    "metodos": {
+      "synthesis_method": [
+        "General Synthesis",
+        "Co-Evaporation"
+      ],
+      "fabrication_technique": [
+        "Spin Coating (One-Step and Two-Step)",
+        "Physical Vapor Deposition (PVD) / Thermal Evaporation"
+      ]
+    },
+    "metrics_global": {
+      "PCE": [
+        "0.74 %",
+        "2 %",
+        "5 %",
+        "7.2 %",
+        "8 %",
+        "9.9 %",
+        "10 %",
+        "10.4 %",
+        "12 %",
+        "20 %",
+        "30 %",
+        "40 %",
+        "45.4 %",
+        "57 %",
+        "91 %"
+      ],
+      "Voc": [
+        "0 V",
+        "0.72 V",
+        "1.06 V",
+        "3 V",
+        "0.150 V"
+      ],
+      "Jsc": [
+        "18.1 mA/cm²",
+        "100 mA/cm²"
+      ],
+      "FF": [
+        "2 %",
+        "9.9 %",
+        "10.4 %",
+        "45.4 %"
+      ],
+      "format_document": "PDF",
+      "annotation_schema": "BIO",
+      "samples": [
+        "Sample 1: [PCE: 45.4%, Jsc: 15.8 mA, FF: 45. 4 %, Voc: 0.70 V]",
+        "Sample 2: [PCE: 56.9%, Jsc: 17. 7 mA, FF: 56. 9 %, Voc: 0.72 V]",
+        "Sample 3: [PCE: 55.6%, Jsc: 18. 1 mA, FF: 55.6%, Voc: 0. 80 V]",
+        "Sample 4: [PCE: 63.6%, Jsc: #, FF: 63. 6 %, Voc: 0.85 V]",
+        "Sample 5: [PCE: 58.3%, Jsc: #, FF: 58.3%, Voc: 0.72 V]",
+        "Sample 6: [PCE: 66%, Jsc: 18.3 mA, FF: 66 %, Voc: 865 mV]"
+      ]
+    },
+    "extraction_date": "2026-04-05T18:36:54.014074",
+    "model_used": "BERT-NER-Perovskite (fine-tuned)",
+    "license": "CC-BY 4.0",
+    "fair_notes": "FAIR-compliant JSON dataset"
+  },
+  {
+    "id": "4e409f36-7e15-4329-8059-df6292102de3",
+    "title": "All-solid-state hybrid solar cells based on a new",
+    "Authors": "organometal halide perovskite sensitizer and",
+    "doi": "10.1039/c3nr00218g",
+    "Subject": null,
+    "Keywords": null,
+    "capas": {
+      "ETL": [
+        "TiO₂",
+        "SnO₂"
+      ],
+      "Perovskite": [
+        "CH3NH3PbI3",
+        "CH3NH3PbI2Br ( c",
+        "##NH3",
+        "CH3NH3PbI2B",
+        "CH3NH3PbI2Br"
+      ],
+      "HTL": [
+        "Spiro-OMeTAD"
+      ],
+      "Substrate/TCO": [
+        "Flexible (PET/PEN/PI)",
+        "ITO",
+        "FTO"
+      ],
+      "Electrode": [
+        "Not specified"
+      ]
+    },
+    "metodos": {
+      "synthesis_method": [
+        "Hydrothermal Synthesis",
+        "Co-Evaporation"
+      ],
+      "fabrication_technique": [
+        "Solution-Processed",
+        "Physical Vapor Deposition (PVD) / Thermal Evaporation"
+      ]
+    },
+    "metrics_global": {
+      "PCE": [
+        "2.55 %",
+        "4 %",
+        "4.29 %",
+        "4.87 %",
+        "5 %",
+        "17.23 %"
+      ],
+      "Voc": [
+        "0 V",
+        "0.82 V",
+        "2 V"
+      ],
+      "Jsc": [
+        "4 mA/cm²",
+        "10.12 mA/cm²"
+      ],
+      "FF": [
+        "0",
+        "4.87 %",
+        "5 %"
+      ],
+      "format_document": "PDF",
+      "annotation_schema": "BIO",
+      "samples": []
+    },
+    "extraction_date": "2026-04-05T18:39:50.254826",
+    "model_used": "BERT-NER-Perovskite (fine-tuned)",
+    "license": "CC-BY 4.0",
+    "fair_notes": "FAIR-compliant JSON dataset"
+  },
+  {
+    "id": "df682ccb-7d98-463c-b59a-b15016d0791f",
+    "title": "Enhancement of Perovskite-Based Solar Cells Employing Core−Shell",
+    "Authors": "Wei Zhang, Michael Saliba, Samuel D. Stranks, Yao Sun, Xian Shi, Ulrich Wiesner, and Henry J. Snaith",
+    "doi": "10.1021/nl4024287",
+    "Subject": "Nano Lett. 2013.13:4505-4510",
+    "Keywords": "Perovskites,thin-film solar cells,Au@SiO2 nanoparticles,exciton binding energy,free charge carriers",
+    "capas": {
+      "Perovskite": [
+        "CH3NH3PbI3",
+        "CH3NH3PbI3 - xClx"
+      ],
+      "HTL": [
+        "Spiro-OMeTAD"
+      ],
+      "ETL": [
+        "TiO₂",
+        "ZnO",
+        "SnO₂"
+      ],
+      "Substrate/TCO": [
+        "Flexible (PET/PEN/PI)",
+        "ITO",
+        "FTO"
+      ],
+      "Electrode": [
+        "Not specified"
+      ]
+    },
+    "metodos": {
+      "synthesis_method": [
+        "General Synthesis"
+      ],
+      "fabrication_technique": [
+        "Spin Coating (One-Step and Two-Step)",
+        "Atomic Layer Deposition (ALD)",
+        "Solution-Processed"
+      ]
+    },
+    "metrics_global": {
+      "PCE": [
+        "3.8 %",
+        "6 %",
+        "8 %",
+        "8.4 %",
+        "9 %",
+        "9.5 %",
+        "9.7 %",
+        "10.7 %",
+        "10.9 %",
+        "11 %",
+        "11.4 %",
+        "13 %"
+      ],
+      "Voc": [],
+      "Jsc": [
+        "13.7 mA/cm²",
+        "15.3 mA/cm²",
+        "16.9 mA/cm²"
+      ],
+      "FF": [
+        "9.5 %"
+      ],
+      "format_document": "PDF",
+      "annotation_schema": "BIO",
+      "samples": []
+    },
+    "extraction_date": "2026-04-05T18:41:36.171192",
+    "model_used": "BERT-NER-Perovskite (fine-tuned)",
+    "license": "CC-BY 4.0",
+    "fair_notes": "FAIR-compliant JSON dataset"
+  },
+  {
+    "id": "58146600-0c13-48a4-a982-d9a00562addc",
+    "title": "New iridium complex as additive to the spiro-OMeTAD",
+    "Authors": "in perovskite solar cells with enhanced stability Laura Badia, Elena Mas-Marz´a, Rafael S. S´anchez, Eva M. Barea, a Juan Bisquert, Iv´an Mora-Ser´o, a Photovoltaic, Optoelectronic Devices Group, Physics Department, Universitat Jaume I. Castell´o, Spain Department of Chemistry, Faculty of Science, King Abdulaziz University",
+    "doi": "10.1063/1.4890545",
+    "Subject": null,
+    "Keywords": null,
+    "capas": {
+      "HTL": [
+        "CuSCN",
+        "Spiro-OMeTAD"
+      ],
+      "ETL": [
+        "TiO₂",
+        "SnO₂"
+      ],
+      "Perovskite": [
+        "CH3NH3PbI3 - xClx"
+      ],
+      "Substrate/TCO": [
+        "Flexible (PET/PEN/PI)",
+        "ITO",
+        "FTO"
+      ],
+      "Electrode": [
+        "Not specified"
+      ]
+    },
+    "metodos": {
+      "synthesis_method": [
+        "General Deposition",
+        "General Synthesis"
+      ]
+    },
+    "metrics_global": {
+      "PCE": [
+        "4 %",
+        "10 %",
+        "12 %",
+        "17 %",
+        "22 %",
+        "70 %"
+      ],
+      "Voc": [
+        "25 V"
+      ],
+      "Jsc": [],
+      "FF": [
+        "10 %",
+        "12.4 %",
+        "17 %",
+        "22 %"
+      ],
+      "format_document": "PDF",
+      "annotation_schema": "BIO",
+      "samples": []
+    },
+    "extraction_date": "2026-04-05T18:42:37.306851",
+    "model_used": "BERT-NER-Perovskite (fine-tuned)",
+    "license": "CC-BY 4.0",
+    "fair_notes": "FAIR-compliant JSON dataset"
+  },
+  {
+    "id": "28312ffb-71cf-45c6-81e2-e9f3dc32f0e6",
+    "title": "Perovskite Oxide SrTiO3 as an Eﬃcient Electron Transporter for",
+    "Authors": "Ashok Bera, Kewei Wu, Arif Sheikh, Erkki Alarousu, Omar F. Mohammed, and Tom Wu",
+    "doi": "10.1021/jp509753p",
+    "Subject": "J. Phys. Chem. C 2014.118:28494-28501",
+    "Keywords": null,
+    "capas": {
+      "Perovskite": [
+        "CH3NH3PbI3",
+        "CH3NH3PbI3 - xClx",
+        "CH3NH3PbI3 - x",
+        "##l",
+        "##3 -",
+        "- ( NH2 ) 2PbI3",
+        "##lx",
+        "##3",
+        "CH3NH3PbX3",
+        "##bI3",
+        "##I3 - xClx"
+      ],
+      "ETL": [
+        "Nb₂O₅",
+        "ZnO",
+        "TiO₂",
+        "Zn₂SnO₄",
+        "SnO₂"
+      ],
+      "HTL": [
+        "Spiro-OMeTAD",
+        "NiOₓ"
+      ],
+      "Substrate/TCO": [
+        "Flexible (PET/PEN/PI)",
+        "ITO",
+        "FTO"
+      ],
+      "Electrode": [
+        "Carbon"
+      ]
+    },
+    "metodos": {
+      "synthesis_method": [
+        "Two-Step Sequential Deposition",
+        "One-Step Solution Process",
+        "Co-Evaporation",
+        "Annealing"
+      ],
+      "fabrication_technique": [
+        "Spin Coating (One-Step and Two-Step)",
+        "Solution-Processed",
+        "Physical Vapor Deposition (PVD) / Thermal Evaporation",
+        "Sequential Deposition (Hybrid Solution-Vapor)",
+        "Pulsed Laser Deposition (PLD)"
+      ]
+    },
+    "metrics_global": {
+      "PCE": [
+        "7.2 %",
+        "7.8 %",
+        "9 %",
+        "12 %",
+        "12.8 %",
+        "15 %",
+        "17 %",
+        "25 %"
+      ],
+      "Voc": [
+        "0.8 V",
+        "1 V",
+        "1.01 V",
+        "2 V",
+        "0.120 V"
+      ],
+      "Jsc": [
+        "7 mA/cm²"
+      ],
+      "FF": [
+        "7.2 %",
+        "9 %",
+        "12.4 %",
+        "12.8 %"
+      ],
+      "format_document": "PDF",
+      "annotation_schema": "BIO",
+      "samples": [
+        "Sample 1: [PCE: #, Jsc: 16. 76 mA, FF: 0. 53, Voc: 0.810 V]",
+        "Sample 2: [PCE: 6. 97 %, Jsc: 13.37 mA/cm2, FF: 0. 56, Voc: 0. 932 V]",
+        "Sample 3: [PCE: 7.55%, Jsc: 14.85 mA/, FF: 0. 55, Voc: 0.932 V]",
+        "Sample 4: [PCE: 25%, Jsc: #, FF: 25%, Voc: 0.81 V]"
+      ]
+    },
+    "extraction_date": "2026-04-05T18:49:47.703082",
+    "model_used": "BERT-NER-Perovskite (fine-tuned)",
+    "license": "CC-BY 4.0",
+    "fair_notes": "FAIR-compliant JSON dataset"
+  },
+  {
+    "id": "2fca61bb-514c-40da-8acd-8a86c098bf46",
+    "title": "Organo-metal halide perovskite-based solar cells with CuSCN as the inorganic hole selective contact",
+    "Authors": "Sudam Chavhan",
+    "doi": "10.1039/c4ta01310g",
+    "Subject": "Journal of Materials Chemistry A: Materials for energy and sustainability (2014), 2, 12754-12760, doi:10.1039/C4TA01310G",
+    "Keywords": null,
+    "capas": {
+      "HTL": [
+        "NiOₓ",
+        "P3HT",
+        "PTAA",
+        "CuSCN",
+        "Spiro-OMeTAD"
+      ],
+      "ETL": [
+        "ZnO",
+        "SnO₂",
+        "PCBM/C₆₀",
+        "TiO₂"
+      ],
+      "Perovskite": [
+        "CH3NH3 - PbI3",
+        "CH3NH3PbI3",
+        "CH3NH3PbBr3",
+        "CH3NH3PbX3"
+      ],
+      "Substrate/TCO": [
+        "FTO",
+        "ITO"
+      ],
+      "Electrode": [
+        "Carbon"
+      ]
+    },
+    "metodos": {
+      "synthesis_method": [
+        "Annealing",
+        "Co-Evaporation"
+      ],
+      "fabrication_technique": [
+        "Spin Coating (One-Step and Two-Step)",
+        "Physical Vapor Deposition (PVD) / Thermal Evaporation",
+        "Solution-Processed",
+        "Sequential Deposition (Hybrid Solution-Vapor)"
+      ]
+    },
+    "metrics_global": {
+      "PCE": [
+        "6 %",
+        "6.4 %",
+        "12 %",
+        "16.2 %",
+        "62 %",
+        "98 %"
+      ],
+      "Voc": [
+        "0.35 V",
+        "11 V",
+        "0.020 V",
+        "28 V",
+        "0.200 V",
+        "0.750 V"
+      ],
+      "Jsc": [],
+      "FF": [
+        "6.4 %"
+      ],
+      "format_document": "PDF",
+      "annotation_schema": "BIO",
+      "samples": []
+    },
+    "extraction_date": "2026-04-05T20:36:48.555345",
+    "model_used": "BERT-NER-Perovskite (fine-tuned)",
+    "license": "CC-BY 4.0",
+    "fair_notes": "FAIR-compliant JSON dataset"
+  },
+  {
+    "id": "e661e66f-c17a-463e-99a4-4a38d1a10c6c",
+    "title": "An Inorganic Hole Conductor for Organo-Lead Halide Perovskite Solar Cells. Improved Hole Conductivity with Copper Iodide",
+    "Authors": "Jeffrey A. Christians, Raymond C. M. Fung, and Prashant V. Kamat",
+    "doi": "10.1021/ja411014k",
+    "Subject": "J. Am. Chem. Soc. 2014.136:758-764",
+    "Keywords": null,
+    "capas": {
+      "HTL": [
+        "CuSCN",
+        "Spiro-OMeTAD"
+      ],
+      "Perovskite": [
+        "CH3NH3PbI3",
+        "CH3NH3PbI3 - xClx"
+      ],
+      "ETL": [
+        "SnO₂",
+        "TiO₂"
+      ],
+      "Substrate/TCO": [
+        "FTO",
+        "ITO"
+      ],
+      "Electrode": [
+        "Carbon"
+      ]
+    },
+    "metodos": {
+      "synthesis_method": [
+        "Surface Passivation",
+        "Co-Evaporation",
+        "General Synthesis"
+      ],
+      "fabrication_technique": [
+        "Spin Coating (One-Step and Two-Step)"
+      ]
+    },
+    "metrics_global": {
+      "PCE": [
+        "6 %",
+        "10 %",
+        "15 %",
+        "20 %",
+        "40 %",
+        "80 %",
+        "97 %",
+        "97.5 %",
+        "98 %",
+        "99 %"
+      ],
+      "Voc": [
+        "0.06 V",
+        "0.07 V",
+        "0.010 V",
+        "0.200 V",
+        "0.250 V",
+        "0.300 V",
+        "0.500 V"
+      ],
+      "Jsc": [
+        "1.1 mA/cm²",
+        "17.8 mA/cm²"
+      ],
+      "FF": [
+        "10 %"
+      ],
+      "format_document": "PDF",
+      "annotation_schema": "BIO",
+      "samples": [
+        "Sample 1: [PCE: 8.3%, Jsc: 18. 9 mA, FF: 0. 71, Voc: 0. 62 V]"
+      ]
+    },
+    "extraction_date": "2026-04-05T20:37:58.346517",
+    "model_used": "BERT-NER-Perovskite (fine-tuned)",
+    "license": "CC-BY 4.0",
+    "fair_notes": "FAIR-compliant JSON dataset"
+  },
+  {
+    "id": "e1202b29-1239-49e3-ae03-96b7e659c9b7",
+    "title": "Elusive Presence of Chloride in Mixed Halide Perovskite Solar Cells",
+    "Authors": "Silvia Colella, Edoardo Mosconi, Giovanna Pellegrino, § Alessandra Alberti, § Valentino L. P. Guerra, ∇ Soﬁa Masi, ∇ Andrea Listorti, Aurora Rizzo, Guglielmo Guido Condorelli, # Filippo De Angelis, and Giuseppe Gigli, ∇ NNL − National Nanotechnology Laboratory, CNR Istituto Nanoscienze, Distretto Tecnologico, Via Arnesano, Italy Computational Laboratory for Hybrid/Organic Photovoltaics, Via Elce di Sotto, Perugia I-",
+    "doi": "10.1021/jz501869f",
+    "Subject": null,
+    "Keywords": null,
+    "capas": {
+      "Perovskite": [
+        "MAPbI3 - xClx",
+        "##I3 - xClx",
+        "MAPbI3 - xC",
+        "CH3NH3PbI3",
+        "##x",
+        "MAPbI₃",
+        "CH3NH3PbX3",
+        "MAPbI3"
+      ],
+      "ETL": [
+        "ZnO",
+        "TiO₂"
+      ],
+      "HTL": [
+        "NiOₓ",
+        "Spiro-OMeTAD"
+      ],
+      "Substrate/TCO": [
+        "FTO",
+        "ITO",
+        "Flexible (PET/PEN/PI)"
+      ],
+      "Electrode": [
+        "Carbon"
+      ]
+    },
+    "metodos": {
+      "synthesis_method": [
+        "Annealing",
+        "Co-Evaporation",
+        "One-Step Solution Process"
+      ],
+      "fabrication_technique": [
+        "Solution-Processed",
+        "Sequential Deposition (Hybrid Solution-Vapor)",
+        "Spin Coating (One-Step and Two-Step)",
+        "Physical Vapor Deposition (PVD) / Thermal Evaporation",
+        "Sputtering"
+      ]
+    },
+    "metrics_global": {
+      "PCE": [
+        "1.92 %",
+        "9.2 %",
+        "10 %",
+        "19.3 %",
+        "75 %"
+      ],
+      "Voc": [],
+      "Jsc": [],
+      "FF": [
+        "1.92 %",
+        "10 %"
+      ],
+      "format_document": "PDF",
+      "annotation_schema": "BIO",
+      "samples": []
+    },
+    "extraction_date": "2026-04-05T20:46:02.681033",
+    "model_used": "BERT-NER-Perovskite (fine-tuned)",
+    "license": "CC-BY 4.0",
+    "fair_notes": "FAIR-compliant JSON dataset"
+  },
+  {
+    "id": "740c1739-9114-4c12-91cb-a48b0db1c06d",
+    "title": "Tailoring of Electron-Collecting Oxide Nanoparticulate Layer for",
+    "Authors": "Seong Sik Shin, Woon Seok Yang, Eun Joo Yeom, Seon Joo Lee, Nam Joong Jeon, Young-Chang Joo, Ik Jae Park, Jun Hong Noh, and Sang Il Seok",
+    "doi": "10.1021/acs.jpclett.6b00295",
+    "Subject": "J. Phys. Chem. Lett. 2016.7:1845-1851",
+    "Keywords": null,
+    "capas": {
+      "Perovskite": [
+        "CH3NH3 ( I0. 9Br0. 1 ) 3",
+        "MAPb ( I0. 9Br0. 1 ) 3",
+        "CH3NH3PbI3",
+        "MAPb - ( I 0. 9Br0. 1 ) 3",
+        "MAPb(I0.9Br0.1)₃"
+      ],
+      "ETL": [
+        "ZnO",
+        "TiO₂",
+        "SnO₂",
+        "PCBM/C₆₀",
+        "CdS",
+        "Zn₂SnO₄"
+      ],
+      "HTL": [
+        "PEDOT:PSS",
+        "PTAA"
+      ],
+      "Substrate/TCO": [
+        "ITO",
+        "Flexible (PET/PEN/PI)"
+      ],
+      "Electrode": [
+        "Not specified"
+      ]
+    },
+    "metodos": {
+      "synthesis_method": [
+        "Hydrothermal Synthesis",
+        "Hydrazine-Assisted Hydrothermal",
+        "Microwave-Assisted Synthesis",
+        "Annealing",
+        "Solvent Treatment"
+      ],
+      "fabrication_technique": [
+        "Inkjet Printing (Drop-on-Demand)",
+        "Solution-Processed",
+        "Sequential Deposition (Hybrid Solution-Vapor)",
+        "Spin Coating (One-Step and Two-Step)",
+        "Low-Temperature Processing",
+        "Atomic Layer Deposition (ALD)",
+        "Sputtering",
+        "Roll-to-Roll (R2R) Processing"
+      ]
+    },
+    "metrics_global": {
+      "PCE": [
+        "11.2 %",
+        "15 %",
+        "16 %",
+        "16.5 %",
+        "17 %",
+        "17.1 %",
+        "17.6 %",
+        "20 %",
+        "73.4 %",
+        "80 %"
+      ],
+      "Voc": [
+        "0.04 V",
+        "0.1 V",
+        "0.4 V",
+        "0.916 V",
+        "1 V",
+        "1.01 V",
+        "1.03 V",
+        "1.11 V",
+        "2 V"
+      ],
+      "Jsc": [
+        "21.24 mA/cm²",
+        "21.9 mA/cm²"
+      ],
+      "FF": [
+        "15 %",
+        "16 %",
+        "17.1 %",
+        "17.6 %",
+        "73.4 %"
+      ],
+      "format_document": "PDF",
+      "annotation_schema": "BIO",
+      "samples": [
+        "Sample 1: [PCE: 16.5%, Jsc: 20.4 mA/cm2, FF: 0. 73, Voc: 1.1 V]",
+        "Sample 2: [PCE: #, Jsc: 20 mA/cm2, FF: 0. 70, Voc: 1.1 V]"
+      ]
+    },
+    "extraction_date": "2026-04-05T20:50:11.781246",
+    "model_used": "BERT-NER-Perovskite (fine-tuned)",
+    "license": "CC-BY 4.0",
+    "fair_notes": "FAIR-compliant JSON dataset"
+  },
+  {
+    "id": "693efd89-d9be-4bc5-a297-d2a20db10b8d",
+    "title": "Perovskite solar cells: Progress, challenges, and future avenues to clean energy",
+    "Authors": "Mohsin Afroz",
+    "doi": "10.1016/j.solener.2024.113205",
+    "Subject": "Solar Energy, 287 (2025) 113205. doi:10.1016/j.solener.2024.113205",
+    "Keywords": "Power conversion efficiency,Band gap tuning,Efficiency,Stability,Fabrication techniques,Interfacial engineering",
+    "capas": {
+      "HTL": [
+        "CuOₓ",
+        "NiOₓ",
+        "P3HT",
+        "PTAA",
+        "CuSCN",
+        "Spiro-OMeTAD",
+        "PEDOT:PSS"
+      ],
+      "ETL": [
+        "SnO₂",
+        "PCBM/C₆₀",
+        "ZnO",
+        "TiO₂"
+      ],
+      "Perovskite": [
+        "CsPbI₃",
+        "MASnI₃",
+        "FAPbI3",
+        "Sn-Pb Alloy",
+        "##AgBiBr6",
+        "CsFAMA",
+        "2D Perovskite",
+        "CH3NH3PbI3",
+        "MAPbI₃",
+        "MAPbIxBr3x",
+        "CH3NH3SnI3",
+        "##21",
+        "CsPbI3",
+        "MASnI3",
+        "MAPbI3",
+        "FAPbI₃"
+      ],
+      "Substrate/TCO": [
+        "FTO",
+        "ITO",
+        "Flexible (PET/PEN/PI)"
+      ],
+      "Electrode": [
+        "Carbon"
+      ]
+    },
+    "metodos": {
+      "synthesis_method": [
+        "Surface Passivation",
+        "Green Solvent-Assisted Synthesis",
+        "Co-Evaporation",
+        "One-Step Solution Process",
+        "Annealing",
+        "Two-Step Sequential Deposition",
+        "Solvent Treatment",
+        "Sol-Gel"
+      ],
+      "fabrication_technique": [
+        "Gravure Printing",
+        "Pulsed Laser Deposition (PLD)",
+        "Chemical Vapor Deposition (CVD)",
+        "Blade Coating (Doctor Blading)",
+        "Inkjet Printing (Drop-on-Demand)",
+        "Solution-Processed",
+        "Sequential Deposition (Hybrid Solution-Vapor)",
+        "Spin Coating (One-Step and Two-Step)",
+        "Physical Vapor Deposition (PVD) / Thermal Evaporation",
+        "Slot-Die Coating",
+        "Low-Temperature Processing",
+        "Screen Printing",
+        "Atomic Layer Deposition (ALD)",
+        "Sputtering",
+        "Spray Coating (Ultrasonic and Electrostatic)",
+        "Roll-to-Roll (R2R) Processing"
+      ]
+    },
+    "metrics_global": {
+      "PCE": [
+        "0 %",
+        "1 %",
+        "2 %",
+        "3.8 %",
+        "3.81 %",
+        "6 %",
+        "6.5 %",
+        "6.6 %",
+        "6.7 %",
+        "7 %",
+        "7.3 %",
+        "7.41 %",
+        "8.65 %",
+        "9 %",
+        "9.2 %",
+        "9.7 %",
+        "9.9 %",
+        "10 %",
+        "10.4 %",
+        "11 %",
+        "11.2 %",
+        "11.5 %",
+        "12 %",
+        "13 %",
+        "14 %",
+        "15 %",
+        "15.58 %",
+        "16 %",
+        "16.2 %",
+        "17 %",
+        "17.1 %",
+        "17.76 %",
+        "18 %",
+        "19 %",
+        "19.8 %",
+        "20 %",
+        "20.3 %",
+        "21 %",
+        "22 %",
+        "22.06 %",
+        "22.44 %",
+        "23 %",
+        "23.4 %",
+        "23.7 %",
+        "25 %",
+        "25.4 %",
+        "25.5 %",
+        "26 %",
+        "27 %",
+        "28 %",
+        "30 %",
+        "30.8 %",
+        "32.8 %",
+        "33 %",
+        "41 %",
+        "44 %",
+        "50 %",
+        "70 %",
+        "85 %",
+        "86 %",
+        "90 %",
+        "95 %"
+      ],
+      "Voc": [
+        "1 V",
+        "2 V",
+        "13 V"
+      ],
+      "Jsc": [
+        "1 mA/cm²",
+        "2 mA/cm²",
+        "7 mA/cm²",
+        "26 mA/cm²"
+      ],
+      "FF": [
+        "0",
+        "2.2 %",
+        "3.8 %",
+        "6.5 %",
+        "6.6 %",
+        "7.3 %",
+        "7.41 %",
+        "9.2 %",
+        "10.4 %",
+        "11 %",
+        "11.1 %",
+        "11.2 %",
+        "11.5 %",
+        "12.6 %",
+        "14 %",
+        "15 %",
+        "15.4 %",
+        "15.58 %",
+        "16 %",
+        "16.2 %",
+        "17 %",
+        "17.1 %",
+        "17.76 %",
+        "17.8 %",
+        "19 %",
+        "19.8 %",
+        "20 %",
+        "20.3 %",
+        "22 %",
+        "22.06 %",
+        "22.1 %",
+        "22.44 %",
+        "22.68 %",
+        "22.7 %",
+        "23 %",
+        "23.4 %",
+        "23.7 %",
+        "25 %",
+        "25.4 %",
+        "26 %",
+        "27 %",
+        "28.3 %",
+        "30.8 %",
+        "32.8 %",
+        "33 %",
+        "41.6 %",
+        "44 %",
+        "50 %",
+        "83.9 %",
+        "85 %",
+        "86 %"
+      ],
+      "format_document": "PDF",
+      "annotation_schema": "BIO",
+      "samples": [
+        "Sample 1: [PCE: 71 %, Jsc: #, FF: 71, Voc: 1. 72 V]",
+        "Sample 2: [PCE: 21.3 %, Jsc: #, FF: 21.3 %, Voc: 27. V]"
+      ]
+    },
+    "extraction_date": "2026-04-05T21:01:34.547557",
+    "model_used": "BERT-NER-Perovskite (fine-tuned)",
+    "license": "CC-BY 4.0",
+    "fair_notes": "FAIR-compliant JSON dataset"
+  },
+  {
+    "id": "4e2f2bd7-4de4-40a8-9deb-99b9fc062b3d",
+    "title": "Enhanced performance of lead-free tandem solar cells with CsSnCl3 perovskites_ 44% power conversion efficiency",
+    "Authors": "Saumya Vaish",
+    "doi": "10.1016/j.nxener.2026.100594",
+    "Subject": "Next Energy, 11 (2026) 100594. doi:10.1016/j.nxener.2026.100594",
+    "Keywords": "CsSnCl3; Tandem solar cell; NiO; Silicon; SCAPS-1D; PCE; ",
+    "capas": {
+      "Perovskite": [
+        "CsPbI₃",
+        "MASnI₃",
+        "CsSnCl3",
+        "CsFAMA",
+        "CsPbX3",
+        "MAPbX3",
+        "##l3",
+        "CH3NH3PbI3",
+        "CsSnI3",
+        "MAPbI₃",
+        "##Cl3",
+        "##Sn"
+      ],
+      "ETL": [
+        "ZnO",
+        "SnO₂",
+        "TiO₂"
+      ],
+      "HTL": [
+        "PEDOT:PSS",
+        "NiOₓ"
+      ],
+      "Substrate/TCO": [
+        "ITO",
+        "Flexible (PET/PEN/PI)"
+      ],
+      "Electrode": [
+        "Carbon"
+      ]
+    },
+    "metodos": {
+      "fabrication_technique": [
+        "Solution-Processed"
+      ]
+    },
+    "metrics_global": {
+      "PCE": [
+        "9 %",
+        "13 %",
+        "13.6 %",
+        "13.68 %",
+        "14 %",
+        "17.3 %",
+        "23 %",
+        "25 %",
+        "26.1 %",
+        "28 %",
+        "29 %",
+        "30 %",
+        "31 %",
+        "32 %",
+        "41 %",
+        "44 %",
+        "45 %",
+        "80 %",
+        "85 %"
+      ],
+      "Voc": [
+        "1.29 V",
+        "1.33 V",
+        "2.1 V",
+        "10 V"
+      ],
+      "Jsc": [
+        "18 mA/cm²",
+        "31 mA/cm²"
+      ],
+      "FF": [
+        "0",
+        "1 %",
+        "9 %",
+        "13.4 %",
+        "13.6 %",
+        "14.3 %",
+        "17.3 %",
+        "23.64 %",
+        "25 %",
+        "28 %",
+        "28.59 %",
+        "29 %",
+        "30 %",
+        "31 %",
+        "32 %",
+        "41 %",
+        "44 %",
+        "45 %",
+        "80 %",
+        "85 %"
+      ],
+      "format_document": "PDF",
+      "annotation_schema": "BIO",
+      "samples": [
+        "Sample 1: [PCE: 28 %, Jsc: 25. 55 mA, FF: 0. 84, Voc: #]",
+        "Sample 2: [PCE: 44%, Jsc: 24.8 mA/cm, FF: 0. 84, Voc: 2. 1 V]"
+      ]
+    },
+    "extraction_date": "2026-04-05T21:16:05.578011",
+    "model_used": "BERT-NER-Perovskite (fine-tuned)",
+    "license": "CC-BY 4.0",
+    "fair_notes": "FAIR-compliant JSON dataset"
+  },
+  {
+    "id": "aa63713c-1148-4dc2-8bac-339d79838249",
+    "title": "Long-term performance of perovskite solar cells in low-power indoor energy harvesting applications",
+    "Authors": "Darjo Uršič",
+    "doi": "10.1016/j.solmat.2026.114254",
+    "Subject": "Solar Energy Materials and Solar Cells, 300 (2026) 114254. doi:10.1016/j.solmat.2026.114254",
+    "Keywords": null,
+    "capas": {
+      "ETL": [
+        "SnO₂",
+        "PCBM/C₆₀"
+      ],
+      "Substrate/TCO": [
+        "ITO",
+        "Flexible (PET/PEN/PI)"
+      ],
+      "Perovskite": [
+        "2D Perovskite"
+      ],
+      "Electrode": [
+        "Not specified"
+      ]
+    },
+    "metodos": {
+      "synthesis_method": [
+        "Annealing"
+      ],
+      "fabrication_technique": [
+        "Atomic Layer Deposition (ALD)"
+      ]
+    },
+    "metrics_global": {
+      "PCE": [
+        "1 %",
+        "20 %",
+        "30 %",
+        "36 %",
+        "40 %",
+        "50 %",
+        "56 %",
+        "60 %"
+      ],
+      "Voc": [
+        "0.400 V"
+      ],
+      "Jsc": [
+        "5 mA/cm²",
+        "6 mA/cm²",
+        "7 mA/cm²"
+      ],
+      "FF": [
+        "20 %",
+        "30 %",
+        "36 %",
+        "40 %",
+        "50 %",
+        "56 %"
+      ],
+      "format_document": "PDF",
+      "annotation_schema": "BIO",
+      "samples": [
+        "Sample 1: [PCE: 21%, Jsc: 22. 9 mA, FF: 21%, Voc: 1.12 V]",
+        "Sample 2: [PCE: 80.4%, Jsc: 22.98 mA/cm, FF: 80. 4 %, Voc: #]"
+      ]
+    },
+    "extraction_date": "2026-04-05T21:22:19.933598",
+    "model_used": "BERT-NER-Perovskite (fine-tuned)",
+    "license": "CC-BY 4.0",
+    "fair_notes": "FAIR-compliant JSON dataset"
+  },
+  {
+    "id": "9f34b24e-ce92-41d1-a7c9-efd4bf694019",
+    "title": "Fabrication and characterization of lanthanide-doped perovskite solar cells",
+    "Authors": "Ryushi Nakamura",
+    "doi": "10.1016/j.apsusc.2026.166156",
+    "Subject": "Applied Surface Science, 728 (2026) 166156. doi:10.1016/j.apsusc.2026.166156",
+    "Keywords": "Perovskite solar cell,Lanthanoids,X-ray diffraction,First-principles calculation",
+    "capas": {
+      "HTL": [
+        "NiOₓ",
+        "Spiro-OMeTAD"
+      ],
+      "Perovskite": [
+        "CsPbI₃",
+        "MAP",
+        "MAPb(I2.5Br0.5)₃",
+        "FAPbI₃"
+      ],
+      "Substrate/TCO": [
+        "FTO",
+        "ITO"
+      ],
+      "ETL": [
+        "SnO₂",
+        "TiO₂"
+      ],
+      "Electrode": [
+        "Not specified"
+      ]
+    },
+    "metodos": {
+      "synthesis_method": [
+        "Surface Passivation"
+      ],
+      "fabrication_technique": [
+        "Atomic Layer Deposition (ALD)"
+      ]
+    },
+    "metrics_global": {
+      "PCE": [
+        "0 %",
+        "1 %",
+        "2 %",
+        "6.63 %",
+        "9.35 %",
+        "10 %",
+        "12 %",
+        "12.4 %",
+        "13 %",
+        "13.3 %",
+        "14.5 %",
+        "18.3 %",
+        "24.01 %",
+        "26 %",
+        "26.05 %",
+        "40 %",
+        "76.3 %",
+        "91 %",
+        "92 %"
+      ],
+      "Voc": [
+        "0.08 V",
+        "1 V",
+        "2 V",
+        "20 V",
+        "5000 V"
+      ],
+      "Jsc": [
+        "0 mA/cm²",
+        "0.628 mA/cm²",
+        "3 mA/cm²",
+        "23 mA/cm²"
+      ],
+      "FF": [
+        "0.91 %",
+        "1 %",
+        "6.63 %",
+        "9.35 %",
+        "10.14 %",
+        "12.4 %",
+        "12.5 %",
+        "12.9 %",
+        "13.3 %",
+        "14.5 %",
+        "18.3 %",
+        "24.01 %",
+        "26 %",
+        "26.05 %",
+        "50 %",
+        "91 %"
+      ],
+      "format_document": "PDF",
+      "annotation_schema": "BIO",
+      "samples": []
+    },
+    "extraction_date": "2026-04-05T21:38:11.943779",
+    "model_used": "BERT-NER-Perovskite (fine-tuned)",
+    "license": "CC-BY 4.0",
+    "fair_notes": "FAIR-compliant JSON dataset"
+  }
+]
