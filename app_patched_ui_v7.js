@@ -370,17 +370,69 @@ function loadFromEmbedded() {
   const p = $("#sample-papers-json");   if (p) setPapers(JSON.parse(p.textContent));
   const e2 = $("#sample-entities-json"); if (e2) setEntities(JSON.parse(e2.textContent));
 }
-function setPapers(papersJson) {
-  state.papersById.clear();
-  (papersJson.papers || []).forEach(p => state.papersById.set(p.paper_id, p));
+function setPapers(papersJson, { append = false } = {}) {
+  const acceptedPaperIds = new Set();
+  if (!append) {
+    state.papersById.clear();
+    (papersJson.papers || []).forEach(p => {
+      state.papersById.set(p.paper_id, p);
+      acceptedPaperIds.add(p.paper_id);
+    });
+    return acceptedPaperIds;
+  }
+  const existingDois = new Set(
+    Array.from(state.papersById.values()).map(getPaperDoiKeyFromPaper).filter(Boolean)
+  );
+  (papersJson.papers || []).forEach(p => {
+    const doiKey = getPaperDoiKeyFromPaper(p);
+    if (!doiKey || existingDois.has(doiKey)) {
+      console.log("Paper duplicado ignorado:", p.doi || p.paper_id);
+      return;
+    }
+    state.papersById.set(p.paper_id, p);
+    existingDois.add(doiKey);
+    acceptedPaperIds.add(p.paper_id);
+  });
+  return acceptedPaperIds;
 }
-function setEntities(entitiesJson) {
-  state.entities = (entitiesJson.entities || []).slice();
+function setEntities(entitiesJson, { append = false, allowedPaperIds = null } = {}) {
+  let incoming = (entitiesJson.entities || []).slice();
+  if (allowedPaperIds instanceof Set) {
+    incoming = incoming.filter(e => allowedPaperIds.has(e.paper_id));
+  }
+  if (!append) {
+    state.entities = incoming;
+    rebuildStateDerivedData();
+    return;
+  }
+  state.entities = state.entities.concat(incoming);
+  rebuildStateDerivedData();
+}
+function normalizeDoiKey(v) {
+  return String(v ?? "")
+    .trim()
+    .toLowerCase()
+    .replace(/^https?:\/\/(dx\.)?doi\.org\//i, "")
+    .replace(/\s+/g, "");
+}
+function getPaperDoiKeyFromPaper(paper) {
+  return normalizeDoiKey(paper?.doi || paper?.paper_id || "");
+}
+function getPaperDoiKeyFromId(paperId) {
+  const p = state.papersById.get(paperId);
+  if (p) return getPaperDoiKeyFromPaper(p);
+  return normalizeDoiKey(paperId);
+}
+function getEntityDoiKey(entity) {
+  return getPaperDoiKeyFromId(entity?.paper_id);
+}
+function rebuildStateDerivedData() {
   buildLabelsAvailable();
   buildCellIndex();
   computeRangeMetaAndInit();
   renderRangeFilters();
-  state.page = 1; applyFilters();
+  state.page = 1;
+  applyFilters();
 }
 function buildLabelsAvailable() {
   state.groupsAvailable = ['capas', 'metodos', 'celdas'];
@@ -1202,13 +1254,19 @@ function handleEntitiesFile(ev) {
       const raw = JSON.parse(r.result);
       const normalized = normalizeEntitiesInput(raw);
       if (normalized.mode === "fair") {
-        setPapers(normalized.papersJson);
-        setEntities(normalized.entitiesJson);
+        const acceptedPaperIds = setPapers(normalized.papersJson, { append: true });
+
+        setEntities(normalized.entitiesJson, {
+          append: true,
+          allowedPaperIds: acceptedPaperIds
+        });
       } else {
-        setEntities(raw);
+        setEntities(raw, { append: true });
       }
+
       postLoadSetup();
       applyFilters();
+      ev.target.value = "";
     } catch (err) {
       alert("No se pudo leer entities.json: " + err.message);
     }
@@ -1301,10 +1359,18 @@ async function scanLocalImagesFolder() {
       if (subHandle.kind !== 'directory') continue;
       console.log('Procesando subcarpeta (independiente):', subName);
       const paper_id = subName;
+      const doiKey = getPaperDoiKeyFromId(paper_id);
+
       for await (const [fileName, fileHandle] of subHandle.entries()) {
         if (fileHandle.kind !== 'file') continue;
         if (!/\.(jpg|png|gif|jpeg|webp|svg)$/i.test(fileName)) continue;
-        const existing = state.imagesEntities.find(e => e.label === "Imagen" && e.value === fileName && e.paper_id === paper_id);
+
+        const existing = state.imagesEntities.find(e =>
+          e.label === "Imagen" &&
+          normalizeDoiKey(getEntityDoiKey(e)) === doiKey &&
+          String(e.value).trim().toLowerCase() === String(fileName).trim().toLowerCase()
+        );
+
         if (existing) {
           console.log('Imagen duplicada ignorada:', fileName);
           continue;
@@ -1352,10 +1418,18 @@ async function scanLocalTablesFolder() {
       if (subHandle.kind !== 'directory') continue;
       console.log('Procesando subcarpeta (independiente):', subName);
       const paper_id = subName;
+      const doiKey = getPaperDoiKeyFromId(paper_id);
+
       for await (const [fileName, fileHandle] of subHandle.entries()) {
         if (fileHandle.kind !== 'file') continue;
         if (!/\.(jpg|png|gif|jpeg|webp|svg)$/i.test(fileName)) continue;
-        const existing = state.tablesEntities.find(e => e.label === "Tabla" && e.value === fileName && e.paper_id === paper_id);
+
+        const existing = state.tablesEntities.find(e =>
+          e.label === "Tabla" &&
+          normalizeDoiKey(getEntityDoiKey(e)) === doiKey &&
+          String(e.value).trim().toLowerCase() === String(fileName).trim().toLowerCase()
+        );
+
         if (existing) {
           console.log('Tabla duplicada ignorada:', fileName);
           continue;
